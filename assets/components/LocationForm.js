@@ -14,8 +14,27 @@ export default function LocationForm(){
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Type in locatio</Text>
+            <Text style={styles.text}>Type in location</Text>
             <TextInput style={styles.input} onChangeText={text=>{setValue('location',text)}}></TextInput>
         </View>    
     )
 }
+
+const styles=StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:"#ffe6dd",
+        alignItems:"center",
+        justifyContent:'center'
+    },
+    text:{
+        color:'darkslategray',
+        fontSize:20
+    },
+    input:{
+        borderColor:'#2E294E',
+        borderWidth:1,
+        borderRadius:5,
+        backgroundColor:'white'
+    }
+})
