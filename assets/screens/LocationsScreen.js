@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function LocationsScreen() {
+export default function LocationsScreen({ navigation }) {
   return (
     <View>
-      <Text></Text>
+      <Text onPress={() => navigation.navigate("home")}>wuelalalalawp</Text>
     </View>
   );
 }
