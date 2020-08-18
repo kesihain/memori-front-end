@@ -4,8 +4,9 @@ import {useForm} from "react-hook-form";
 
 export default function LocationForm(){
     const onSubmit = data => {
+        console.log('test')
         Alert.alert("Form Data", data);
-    }
+    };
     const {register,handleSubmit,setValue} = useForm();
 
     useEffect(()=>{
@@ -16,6 +17,7 @@ export default function LocationForm(){
         <View style={styles.container}>
             <Text style={styles.text}>Type in location</Text>
             <TextInput style={styles.input} onChangeText={text=>{setValue('location',text)}}></TextInput>
+            <Button title='Submit' color='black' onPress={handleSubmit(onSubmit)}/>
         </View>    
     )
 }
