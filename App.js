@@ -1,34 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
-import 'react-native-gesture-handler';
-import {createAppContainer} from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import LocationsScreen from "./assets/screens/LocationsScreen";
+import "react-native-gesture-handler";
+import HomeScreen from "./assets/screens/Home";
+import {
+  NavigationContainer,
+  NavigationHelpersContext,
+} from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  const Tab = createMaterialBottomTabNavigator();
-
-  function MyTabs() {
-    return (
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-    );
-  }
-  
-  function Home(){
-    return (
-      <SafeAreaView style={styles.container}>
-        <Text>Memori!</Text>
-        <Image
-            style={{width: 500, height: 500}}
-            source={{uri: 'https://media.giphy.com/media/JotKsFe1MXCWcq7kTT/giphy.gif'}} />
-        <StatusBar style="auto" />
-      </SafeAreaView> 
-    );
-    }
-
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen
+          name="home"
+          component={HomeScreen}
+          options={{ title: "HOME" }}
+        />
+        <Stack.Screen name="locations" component={LocationsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -39,3 +35,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+// {
+//   <View style={styles.container}>
+//     <Text
+//       style={styles.text}
+//       onPress={() => navigations.navigate(<locationsScreen />)}
+//     >
+//       what do we do now!!!!
+//     </Text>
+//     <StatusBar style="auto" />
+//   </View>
+// }
