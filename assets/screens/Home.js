@@ -7,9 +7,12 @@ import {
   Image,
   SafeAreaView,
   Button,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
+import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -18,9 +21,29 @@ function HomeScreen() {
           uri: "https://media.giphy.com/media/JotKsFe1MXCWcq7kTT/giphy.gif",
         }}
       />
+      <View style={styles.btns}>
+        <AwesomeButtonRick
+          onPress={() => navigation.navigate("locations")}
+          type="secondary"
+        >
+          Make
+        </AwesomeButtonRick>
+        <AwesomeButtonRick
+          onPress={() => navigation.navigate("locations")}
+          type="secondary"
+        >
+          Remember
+        </AwesomeButtonRick>
+      </View>
+      <View>
+        <AwesomeButtonRick
+          onPress={() => navigation.navigate("locations")}
+          type="secondary"
+        >
+          Locations
+        </AwesomeButtonRick>
+      </View>
       <StatusBar style="auto" />
-
-      <Text>hello there</Text>
     </SafeAreaView>
   );
 }
@@ -30,6 +53,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffe6dd",
     alignItems: "center",
     justifyContent: "center",
+  },
+  btns: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 export default HomeScreen;
