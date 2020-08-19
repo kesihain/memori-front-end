@@ -6,7 +6,6 @@ export default function LocationForm({location,setLocation}){
     const [text,setText] = useState('')
     const [id,setId] = useState(location[location.length-1].id+1) //might need some change when using back-end api
     const onSubmit = data => {
-        Alert.alert("Form Data", data);
         if (data.location != '' && !Object.values(location).includes(data.location)){
             setId(id+1);
             setLocation([
