@@ -10,24 +10,22 @@ import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/ric
               style={{width: 500, height: 500}}
               source={{uri: 'https://media.giphy.com/media/JotKsFe1MXCWcq7kTT/giphy.gif'}} />
           <View style={styles.btns} >
-              <AwesomeButtonRick 
+              <AwesomeButtonRick
               onPress={() => navigation.navigate("locations")} 
               type="secondary">
               Make
               </AwesomeButtonRick>
-              <AwesomeButtonRick 
+              <AwesomeButtonRick
               onPress={() => navigation.navigate("locations")} 
-              type="secondary">
+              type="secondary" title="Remember">
               Remember
               </AwesomeButtonRick>
           </View>
-          <View>
               <AwesomeButtonRick 
               onPress={() => navigation.navigate("locations")} 
               type="secondary">
               Locations
               </AwesomeButtonRick>
-          </View>
           <StatusBar style="auto" />
       </SafeAreaView> 
     );
@@ -42,7 +40,8 @@ import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/ric
       },
       btns: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
+        alignSelf:'stretch',
       },
     });
     export default HomeScreen
