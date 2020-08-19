@@ -31,18 +31,17 @@ function HomeScreen({ navigation }) {
         <AwesomeButtonRick
           onPress={() => navigation.navigate("locations")}
           type="secondary"
+          title="Remember"
         >
           Remember
         </AwesomeButtonRick>
       </View>
-      <View>
-        <AwesomeButtonRick
-          onPress={() => navigation.navigate("locations")}
-          type="secondary"
-        >
-          Locations
-        </AwesomeButtonRick>
-      </View>
+      <AwesomeButtonRick
+        onPress={() => navigation.navigate("locations")}
+        type="secondary"
+      >
+        Locations
+      </AwesomeButtonRick>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
@@ -56,7 +55,8 @@ const styles = StyleSheet.create({
   },
   btns: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    alignSelf: "stretch",
   },
 });
 export default HomeScreen;
