@@ -9,7 +9,6 @@ export default function LocationsScreen({navigation}) {
   ])
   return (
     <View>
-      <Text onPress={() => navigation.navigate("home")}>Home</Text>
       <LocationForm location={location} setLocation={setLocation}></LocationForm>
       <LocationList location={location}></LocationList>
     </View>
