@@ -15,22 +15,28 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-        headerStyle: {
-          backgroundColor: '#33cccc',
-        },
-        headerTintColor: '#ffffff',
-        headerTitleStyle: {
-          fontSize: 35,
-          alignSelf: 'center'
-        }
-        }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#33cccc",
+          },
+          headerTintColor: "#ffffff",
+          headerTitleStyle: {
+            fontSize: 35,
+            alignSelf: "center",
+          },
+        }}
+      >
         <Stack.Screen
           name="home"
           component={HomeScreen}
           options={{ title: "MEMORI" }}
         />
-        <Stack.Screen name="locations" component={LocationsScreen} options={{ title: "LOCATIONS" }} />
+        <Stack.Screen
+          name="locations"
+          component={LocationsScreen}
+          options={{ title: "LOCATIONS" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -39,8 +45,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffe6dd',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#ffe6dd",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TextInput, Button, Alert, View } from "react-native";
+import { StyleSheet, Text, TextInput, Alert, View } from "react-native";
+import { Button } from "native-base";
 import { useForm } from "react-hook-form";
 
 export default function LocationForm({ location, setLocation }) {
@@ -25,7 +26,7 @@ export default function LocationForm({ location, setLocation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Type in location</Text>
+      <Text style={styles.text}>Enter location:</Text>
       <TextInput
         style={styles.input}
         value={text}
@@ -34,7 +35,10 @@ export default function LocationForm({ location, setLocation }) {
           setText(text);
         }}
       ></TextInput>
-      <Button title="Submit" color="black" onPress={handleSubmit(onSubmit)} />
+      <Button style={styles.button} bordered success>
+        <Text style={styles.buttontext}>Submit</Text>
+      </Button>
+      <Text style={styles.locationstext}>Your locations:</Text>
     </View>
   );
 }
@@ -48,12 +52,35 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "darkslategray",
-    fontSize: 20,
+    fontSize: 50,
+    textAlign: "center",
   },
   input: {
     borderColor: "#2E294E",
     borderWidth: 1,
     borderRadius: 5,
     backgroundColor: "white",
+    width: 200,
+    height: 50,
+  },
+  button: {
+    justifyContent: "center",
+    borderWidth: 200,
+    backgroundColor: "rgb(244, 213, 141)",
+    borderColor: "black",
+    alignItems: "center",
+    width: 200,
+    marginTop: 20,
+    marginLeft: 48,
+    justifyContent: "center",
+  },
+  buttontext: {
+    color: "rgb(238, 124, 109)",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  locationstext: {
+    marginTop: 50,
+    fontSize: 40,
   },
 });
