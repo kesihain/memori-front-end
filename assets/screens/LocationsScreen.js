@@ -8,11 +8,18 @@ export default function LocationsScreen({navigation}) {
       { id: 1, name: 'Next Academy' }
   ])
   return (
-    <View>
+    <View style={styles.container}>
       <LocationForm location={location} setLocation={setLocation}></LocationForm>
       <LocationList location={location}></LocationList>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffe6dd',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+});
