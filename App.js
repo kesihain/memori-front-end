@@ -12,12 +12,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Help from "./assets/screens/Help";
 import SettingsScreen from "./assets/screens/SettingsScreen";
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/AntDesign'
+import EditProfile from "./assets/screens/EditProfile";
 
 
 const HomeStack = createStackNavigator();
 const HelpStack = createStackNavigator();
 const LocationsStack = createStackNavigator();
+const EditProfileStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const HomeStackScreen = ({navigation}) => (
@@ -35,17 +37,26 @@ const HomeStackScreen = ({navigation}) => (
       name="home"
       component={HomeScreen}
       options={{
+        headerLeft: () => (
+          <Icon.Button name = "bars"
+          color = 'white'
+          size = {25} 
+          backgroundColor="#33cccc" 
+          onPress ={()=> navigation.openDrawer()}>
+          </Icon.Button>),
          title: "MEMORI",
-         headerLeft: () => (
-        <Icon.Button name = "ios-menu" 
+         headerRight: () => (
+        <Icon.Button name = "user"
         size = {25} 
         backgroundColor="#33cccc" 
-        onPress ={()=> navigation.openDrawer()}>
+        onPress ={()=> navigation.navigate(EditProfile)}>
         </Icon.Button>
       )}}
     />
     <LocationsStack.Screen name="locations" component={LocationsScreen} options={{ 
       title: "LOCATIONS", }}/>
+    <EditProfileStack.Screen name="EditProfile" component={EditProfile} options={{ 
+      title: "PROFILE", }}/>
   </HomeStack.Navigator>
 )
 
@@ -60,24 +71,28 @@ const HelpStackScreen = ({navigation}) => (
       alignSelf: 'center'
     }
     }}>
-    <HelpStack.Screen name="Help" component={Help} options={{ title: "HELP" }}/>
+    <HelpStack.Screen 
+    name="Help" 
+    component={Help} 
+    options={{ 
+      headerLeft: () => (
+        <Icon.Button name = "bars"
+        color = 'white'
+        size = {25} 
+        backgroundColor="#33cccc" 
+        onPress ={()=> navigation.openDrawer()}>
+        </Icon.Button>),       
+      title: "HELP",
+      headerRight: () => (
+        <Icon.Button name = "user"
+        size = {25} 
+        backgroundColor="#33cccc" 
+        onPress ={()=> navigation.navigate(EditProfile)}>
+        </Icon.Button>
+      )
+       }}/>
   </HelpStack.Navigator>
 )
-
-// const LocationsStackScreen = ({navigation}) => (
-//   <LocationsStack.Navigator screenOptions={{
-//     headerStyle: {
-//       backgroundColor: '#33cccc',
-//     },
-//     headerTintColor: '#ffffff',
-//     headerTitleStyle: {
-//       fontSize: 35,
-//       alignSelf: 'center'
-//     }
-//     }}>
-//     <LocationsStack.Screen name="locations" component={LocationsScreen} options={{ title: "LOCATIONS" }}/>
-//   </LocationsStack.Navigator>
-// )
 
 export default function App() {
   return (
@@ -94,8 +109,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffe6dd',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#ffe6dd",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
