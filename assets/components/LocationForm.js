@@ -12,10 +12,7 @@ export default function LocationForm({ location, setLocation }) {
       !Object.values(location).includes(data.location)
     ) {
       setId(id + 1);
-      setLocation([
-        ...location, 
-        { id: id, name: data.location }
-      ]);
+      setLocation([...location, { id: id, name: data.location }]);
       setValue("location", "");
       setText("");
     }
@@ -38,8 +35,8 @@ export default function LocationForm({ location, setLocation }) {
           setText(text);
         }}
       ></TextInput>
-      <Button style={styles.button} bordered success>
-        <Text style={styles.buttontext}>Submit</Text>
+      <Button style={styles.button} onPress={handleSubmit(onSubmit)} bordered success>
+        <Text style={styles.buttontext} >Submit</Text>
       </Button>
       <Text style={styles.locationstext}>Your locations:</Text>
     </View>
