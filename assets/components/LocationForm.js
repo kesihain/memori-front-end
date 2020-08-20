@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-import React,{useState, useEffect} from 'react';
-import { StyleSheet, Text,TextInput,Button,Alert, View } from "react-native";
-import {useForm} from "react-hook-form";
-import GeoLocation from "../utils/geolocation.js"
-
-export default function LocationForm({location,setLocation}){
-    const [text,setText] = useState('')
-    const [id,setId] = useState(location[location.length-1].id+1) //might need some change when using back-end api
-    const onSubmit = data => {
-        if (data.location != '' && !Object.values(location).includes(data.location)){
-            setId(id+1);
-            setLocation([
-                ...location,
-                {id:id, name:data.location}
-            ]);
-            setValue('location',"");
-            setText("");
-        }
-        console.log(GeoLocation());
-    };
-    const {register,handleSubmit,setValue} = useForm();
-=======
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, Alert, View } from "react-native";
 import { Button } from "native-base";
@@ -35,14 +12,16 @@ export default function LocationForm({ location, setLocation }) {
       !Object.values(location).includes(data.location)
     ) {
       setId(id + 1);
-      setLocation([...location, { id: id, name: data.location }]);
+      setLocation([
+        ...location, 
+        { id: id, name: data.location }
+      ]);
       setValue("location", "");
       setText("");
     }
     console.log(location);
   };
   const { register, handleSubmit, setValue } = useForm();
->>>>>>> d75341140e57f2463d9666a7e80f33e09a7a52ea
 
   useEffect(() => {
     register("location");
