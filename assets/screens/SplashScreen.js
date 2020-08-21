@@ -1,6 +1,7 @@
 import React from 'react'
 import {StyleSheet, Dimensions, Text, View, Image, SafeAreaView,Button,TouchableOpacity, Alert,} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient'
+import Icon from 'react-native-vector-icons/AntDesign'
 
 const SplashScreen = () => {
     return (
@@ -20,6 +21,7 @@ const SplashScreen = () => {
                         colors = {['#08d4c4', '#01ab9d']}
                         style={styles.signIn}>
                             <Text style = {styles.textSign} >Get Started</Text>
+                            <Icon size={20} color="white" name="rightcircleo" />
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
@@ -70,9 +72,9 @@ const styles = StyleSheet.create({
     signIn: {
         width: 150,
         height: 40,
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        borderRadius: 50,
+        borderRadius: 10,
         flexDirection: 'row'
     },
     textSign: {
