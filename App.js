@@ -13,7 +13,9 @@ import Help from "./assets/screens/Help";
 import SettingsScreen from "./assets/screens/SettingsScreen";
 import EditProfile from "./assets/screens/EditProfile";
 
+
 import RootStackScreen from "./assets/screens/RootStackScreen";
+import Make from "./assets/screens/Make";
 
 
 export default function App() {
@@ -31,6 +33,7 @@ export default function App() {
 
 const HomeStack = createStackNavigator();
 const HelpStack = createStackNavigator();
+const MakeStack = createStackNavigator();
 const LocationsStack = createStackNavigator();
 const EditProfileStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -66,6 +69,8 @@ const HomeStackScreen = ({navigation}) => (
         </Icon.Button>
       )}}
     />
+    <MakeStack.Screen name="Make" component={Make} options={{ 
+      title: "CREATE REMINDERS!", }}/>
     <LocationsStack.Screen name="locations" component={LocationsScreen} options={{ 
       title: "LOCATIONS", }}/>
     <EditProfileStack.Screen name="EditProfile" component={EditProfile} options={{ 
