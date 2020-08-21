@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, Alert, View } from "react-native";
 import { Button } from "native-base";
 import { useForm } from "react-hook-form";
+import Geolocation from '../utils/geolocation'
 
 export default function LocationForm({ location, setLocation }) {
   const [text, setText] = useState("");
@@ -16,7 +17,8 @@ export default function LocationForm({ location, setLocation }) {
       setValue("location", "");
       setText("");
     }
-    console.log(location);
+    console.log('here')
+    console.log(Geolocation());
   };
   const { register, handleSubmit, setValue } = useForm();
 

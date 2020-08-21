@@ -8,7 +8,7 @@ const GeoLocation = (inputFunction) => {
     navigator.geolocation.getCurrentPosition(
         (position) => {
             const initialLocation = JSON.stringify(position);
-                console.log(initialLocation);
+                // console.log(initialLocation);
         },
         (error) => console.log(error.message),
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }    
@@ -24,7 +24,7 @@ const GeoLocation = (inputFunction) => {
     //                  "accuracy":     float   
     //              }
     // }
-    return initialPosition
+    return initialLocation
 }
 
 export default GeoLocation
