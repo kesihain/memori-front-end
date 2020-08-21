@@ -23,59 +23,7 @@ export default function LocationsScreen({ navigation }) {
         location={location}
         setLocation={setLocation}
       ></LocationForm>
-      <Content>
-        <List style={styles.list}>
-          <ListItem>
-            <Left>
-              <Text style={styles.listitem}>Simonee Mignolet</Text>
-            </Left>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text style={styles.listitem}>Dejan Lovren</Text>
-            </Left>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text style={styles.listitem}>Nathaniel Clyne</Text>
-            </Left>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text style={styles.listitem}>Nathaniel Clyne</Text>
-            </Left>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text style={styles.listitem}>Nathaniel Clyne</Text>
-            </Left>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Left>
-              <Text style={styles.listitem}>Nathaniel Clyne</Text>
-            </Left>
-            <Right>
-              <Icon name="arrow-forward" />
-            </Right>
-          </ListItem>
-        </List>
-      </Content>
-      {/* <LocationList location={location}></LocationList> */}
+      <LocationList location={location}></LocationList>
     </View>
   );
 }
@@ -101,3 +49,58 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+{
+  /* <Content>
+  <List style={styles.list}>
+    <ListItem>
+      <Left>
+        <Text style={styles.listitem}>Simonee Mignolet</Text>
+      </Left>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
+    <ListItem>
+      <Left>
+        <Text style={styles.listitem}>Dejan Lovren</Text>
+      </Left>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
+    <ListItem>
+      <Left>
+        <Text style={styles.listitem}>Nathaniel Clyne</Text>
+      </Left>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
+    <ListItem>
+      <Left>
+        <Text style={styles.listitem}>Nathaniel Clyne</Text>
+      </Left>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
+    <ListItem>
+      <Left>
+        <Text style={styles.listitem}>Nathaniel Clyne</Text>
+      </Left>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
+    <ListItem>
+      <Left>
+        <Text style={styles.listitem}>Nathaniel Clyne</Text>
+      </Left>
+      <Right>
+        <Icon name="arrow-forward" />
+      </Right>
+    </ListItem>
+  </List>
+</Content> */
+}
