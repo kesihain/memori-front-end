@@ -19,12 +19,12 @@ import RootStackScreen from "./assets/screens/RootStackScreen";
 export default function App() {
   return (
     <NavigationContainer>
-      <RootStackScreen/>
-      {/* <Drawer.Navigator initialRouteName="Home">
+      {/* <RootStackScreen/> */}
+      <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeStackScreen} />
         <Drawer.Screen name="Help" component={HelpStackScreen} />
         <Drawer.Screen name="Settings" component={SettingsScreen} />
-      </Drawer.Navigator> */}
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
