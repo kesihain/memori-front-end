@@ -35,8 +35,13 @@ export default function LocationForm({ location, setLocation }) {
           setText(text);
         }}
       ></TextInput>
-      <Button style={styles.button} onPress={handleSubmit(onSubmit)} bordered success>
-        <Text style={styles.buttontext} >Submit</Text>
+      <Button
+        style={styles.button}
+        onPress={handleSubmit(onSubmit)}
+        bordered
+        success
+      >
+        <Text style={styles.buttontext}>Submit</Text>
       </Button>
       <Text style={styles.locationstext}>Your locations:</Text>
     </View>

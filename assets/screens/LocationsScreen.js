@@ -16,6 +16,8 @@ import {
 } from "native-base";
 
 export default function LocationsScreen({ navigation }) {
+  const [location, setLocation] = useState([{ id: 1, name: "Next Academy" }]);
+
   return (
     <View style={styles.container}>
       <LocationForm

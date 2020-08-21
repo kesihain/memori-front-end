@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Settings } from "react-native";
 import LocationsScreen from "./assets/screens/LocationsScreen";
 import "react-native-gesture-handler";
@@ -22,8 +22,6 @@ const EditProfileStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const HomeStackScreen = ({ navigation }) => {
-  const [location, setLocation] = useState([{ id: 1, name: "Next Academy" }]);
-
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -67,7 +65,6 @@ const HomeStackScreen = ({ navigation }) => {
         options={{
           title: "LOCATIONS",
         }}
-        screenProps={(location = location)}
       />
       <EditProfileStack.Screen
         name="EditProfile"
