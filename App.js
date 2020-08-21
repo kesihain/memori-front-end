@@ -12,50 +12,73 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Help from "./assets/screens/Help";
 import SettingsScreen from "./assets/screens/SettingsScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/AntDesign";
+import EditProfile from "./assets/screens/EditProfile";
 
 const HomeStack = createStackNavigator();
 const HelpStack = createStackNavigator();
 const LocationsStack = createStackNavigator();
+const EditProfileStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const HomeStackScreen = ({ navigation }) => (
-  <HomeStack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: "#33cccc",
-      },
-      headerTintColor: "#ffffff",
-      headerTitleStyle: {
-        fontSize: 35,
-        alignSelf: "center",
-      },
-    }}
-  >
-    <HomeStack.Screen
-      name="home"
-      component={HomeScreen}
-      options={{
-        title: "MEMORI",
-        headerLeft: () => (
-          <Icon.Button
-            name="ios-menu"
-            size={25}
-            backgroundColor="#33cccc"
-            onPress={() => navigation.openDrawer()}
-          ></Icon.Button>
-        ),
+const HomeStackScreen = ({ navigation }) => {
+  const [location, setLocation] = useState([{ id: 1, name: "Next Academy" }]);
+
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#33cccc",
+        },
+        headerTintColor: "#ffffff",
+        headerTitleStyle: {
+          fontSize: 35,
+          alignSelf: "center",
+        },
       }}
-    />
-    <LocationsStack.Screen
-      name="locations"
-      component={LocationsScreen}
-      options={{
-        title: "LOCATIONS",
-      }}
-    />
-  </HomeStack.Navigator>
-);
+    >
+      <HomeStack.Screen
+        name="home"
+        component={HomeScreen}
+        options={{
+          headerLeft: () => (
+            <Icon.Button
+              name="bars"
+              color="white"
+              size={25}
+              backgroundColor="#33cccc"
+              onPress={() => navigation.openDrawer()}
+            ></Icon.Button>
+          ),
+          title: "MEMORI",
+          headerRight: () => (
+            <Icon.Button
+              name="user"
+              size={25}
+              backgroundColor="#33cccc"
+              onPress={() => navigation.navigate(EditProfile)}
+            ></Icon.Button>
+          ),
+        }}
+      />
+      <LocationsStack.Screen
+        name="locations"
+        component={LocationsScreen}
+        options={{
+          title: "LOCATIONS",
+        }}
+        screenProps={(location = location)}
+      />
+      <EditProfileStack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          title: "PROFILE",
+        }}
+      />
+    </HomeStack.Navigator>
+  );
+};
 
 const HelpStackScreen = ({ navigation }) => (
   <HelpStack.Navigator
@@ -73,25 +96,29 @@ const HelpStackScreen = ({ navigation }) => (
     <HelpStack.Screen
       name="Help"
       component={Help}
-      options={{ title: "HELP" }}
+      options={{
+        headerLeft: () => (
+          <Icon.Button
+            name="bars"
+            color="white"
+            size={25}
+            backgroundColor="#33cccc"
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+        title: "HELP",
+        headerRight: () => (
+          <Icon.Button
+            name="user"
+            size={25}
+            backgroundColor="#33cccc"
+            onPress={() => navigation.navigate(EditProfile)}
+          ></Icon.Button>
+        ),
+      }}
     />
   </HelpStack.Navigator>
 );
-
-// const LocationsStackScreen = ({navigation}) => (
-//   <LocationsStack.Navigator screenOptions={{
-//     headerStyle: {
-//       backgroundColor: '#33cccc',
-//     },
-//     headerTintColor: '#ffffff',
-//     headerTitleStyle: {
-//       fontSize: 35,
-//       alignSelf: 'center'
-//     }
-//     }}>
-//     <LocationsStack.Screen name="locations" component={LocationsScreen} options={{ title: "LOCATIONS" }}/>
-//   </LocationsStack.Navigator>
-// )
 
 export default function App() {
   return (
