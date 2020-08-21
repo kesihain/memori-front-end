@@ -1,24 +1,38 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, Settings } from "react-native";
-import LocationsScreen from "./assets/screens/LocationsScreen";
 import "react-native-gesture-handler";
-import HomeScreen from "./assets/screens/Home";
-import {
-  NavigationContainer,
-  NavigationHelpersContext,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Help from "./assets/screens/Help";
-import SettingsScreen from "./assets/screens/SettingsScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/AntDesign";
+
+import HomeScreen from "./assets/screens/Home";
+import LocationsScreen from "./assets/screens/LocationsScreen";
+import Help from "./assets/screens/Help";
+import SettingsScreen from "./assets/screens/SettingsScreen";
 import EditProfile from "./assets/screens/EditProfile";
+
+import RootStackScreen from "./assets/screens/RootStackScreen";
+import Make from "./assets/screens/Make";
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      {/* <RootStackScreen/> */}
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeStackScreen} />
+        <Drawer.Screen name="Help" component={HelpStackScreen} />
+        <Drawer.Screen name="Settings" component={SettingsScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
 
 const HomeStack = createStackNavigator();
 const HelpStack = createStackNavigator();
 const LocationsStack = createStackNavigator();
 const EditProfileStack = createStackNavigator();
+const MakeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const HomeStackScreen = ({ navigation }) => {
@@ -57,6 +71,13 @@ const HomeStackScreen = ({ navigation }) => {
               onPress={() => navigation.navigate(EditProfile)}
             ></Icon.Button>
           ),
+        }}
+      />
+      <MakeStack.Screen
+        name="Make"
+        component={Make}
+        options={{
+          title: "CREATE REMINDERS",
         }}
       />
       <LocationsStack.Screen
@@ -116,18 +137,6 @@ const HelpStackScreen = ({ navigation }) => (
     />
   </HelpStack.Navigator>
 );
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeStackScreen} />
-        <Drawer.Screen name="Help" component={HelpStackScreen} />
-        <Drawer.Screen name="Settings" component={SettingsScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
