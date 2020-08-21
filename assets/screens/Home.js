@@ -1,15 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
-  Button,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import {StyleSheet, Text, View, Image, SafeAreaView,Button,TouchableOpacity, Alert,} from "react-native";
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 
 function HomeScreen({ navigation }) {
