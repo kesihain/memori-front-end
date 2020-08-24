@@ -4,11 +4,14 @@ import React, { useState,Component } from 'react';
 //expo install expo-permissions
 //npm install  -- global expo-cli
 //Method calls the device GPS and gets the current location
-const GeoLocation = (inputFunction) => {
+const GeoLocation = () => {
     navigator.geolocation.getCurrentPosition(
         (position) => {
-            const initialLocation = JSON.stringify(position);
-                // console.log(initialLocation);
+            const longitude = position.coords.longitude;
+            const latitude = position.coords.latitude;
+            console.log(longitude)
+            console.log(latitude)
+            return longitude,latitude
         },
         (error) => console.log(error.message),
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }    
@@ -24,7 +27,7 @@ const GeoLocation = (inputFunction) => {
     //                  "accuracy":     float   
     //              }
     // }
-    return initialLocation
+    return longitude,latitude
 }
 
 export default GeoLocation
