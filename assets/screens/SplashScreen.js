@@ -2,21 +2,25 @@ import React from 'react'
 import {StyleSheet, Dimensions, Text, View, Image, SafeAreaView,Button,TouchableOpacity, Alert,} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient'
 import Icon from 'react-native-vector-icons/AntDesign'
+import * as Animatable from 'react-native-animatable'
+import { useTheme } from '@react-navigation/native'
 
-const SplashScreen = () => {
+const SplashScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image
+                <Animatable.Image
+                animation ="bounceIn"
+                duration = {1500}
                 source={require('./Logo.png')}
                 style={styles.logo}
                 resizeMode='stretch'/>
             </View>
-            <View style={styles.footer}>
+            <Animatable.View style={styles.footer} animation='fadeInUpBig'>
                 <Text style = {styles.title}>Welcome to Memori</Text>
-                <Text style = {styles.text}>Have an account? Sign in.</Text>
+                <Text style = {styles.text}>Press the button to begin.</Text>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={alert('Click')}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('SignInScreen')}>
                         <LinearGradient
                         colors = {['#08d4c4', '#01ab9d']}
                         style={styles.signIn}>
@@ -25,7 +29,7 @@ const SplashScreen = () => {
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </Animatable.View>
         </View>        
 
     );
@@ -62,7 +66,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     text: {
-        color: 'blue',
+        color: 'grey',
         marginTop:5
     },
     button: {
