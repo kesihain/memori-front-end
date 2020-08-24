@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, Alert, View } from "react-native";
 import { Button } from "native-base";
 import { useForm } from "react-hook-form";
+import Geolocation from '../utils/geolocation'
 
 export default function LocationForm({ location, setLocation }) {
   const [text, setText] = useState("");
@@ -12,11 +13,19 @@ export default function LocationForm({ location, setLocation }) {
       !Object.values(location).includes(data.location)
     ) {
       setId(id + 1);
-      setLocation([...location, { id: id, name: data.location }]);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const longitude = position.coords.longitude;
+            const latitude = position.coords.latitude;
+            setLocation([...location, { id: id, name: data.location,longitude:longitude,latitude:latitude }]);
+            console.log(location)
+        },
+        (error) => console.log(error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }    
+      )
       setValue("location", "");
       setText("");
     }
-    console.log(location);
   };
   const { register, handleSubmit, setValue } = useForm();
 

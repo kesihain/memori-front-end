@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import LocationForm from "../components/LocationForm";
 import LocationList from "../components/LocationList";
@@ -14,9 +14,10 @@ import {
   Icon,
   ListItem,
 } from "native-base";
+import { locationContext } from "../../App";
 
 export default function LocationsScreen({ navigation }) {
-  const [location, setLocation] = useState([{ id: 1, name: "Next Academy" }]);
+  const {location,setLocation}=useContext(locationContext)
   return (
     <View style={styles.container}>
       <LocationForm
