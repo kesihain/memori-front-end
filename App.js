@@ -1,5 +1,5 @@
-import React,{useState} from "react";
-import { StyleSheet, Text, View, SafeAreaView, Settings } from "react-native";
+import React, {useEffect, useState} from "react";
+import { StyleSheet, Text, View, SafeAreaView, Settings, ActivityIndicator} from "react-native";
 import "react-native-gesture-handler";
 import {NavigationContainer,} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -103,14 +103,14 @@ const HelpStackScreen = ({navigation}) => (
         <Icon.Button name = "bars"
         color = 'white'
         size = {25} 
-        backgroundColor="#33cccc" 
+        backgroundColor="#3399ff" 
         onPress ={()=> navigation.openDrawer()}>
         </Icon.Button>),       
       title: "HELP",
       headerRight: () => (
         <Icon.Button name = "user"
         size = {25} 
-        backgroundColor="#33cccc" 
+        backgroundColor="3399ff" 
         onPress ={()=> navigation.navigate(EditProfile)}>
         </Icon.Button>
       )

@@ -36,7 +36,17 @@ const SignUpScreen = ({navigation}) => {
                         secureTextEntry={true}
                         style={styles.textIntput}
                         autoCapitalize="none" />
-                </View>     
+                </View>
+
+                <Text style={styles.text_footer, {marginTop: 35}}>Confirm Password</Text>
+                <View style={styles.action}>
+                    <TextInput 
+                        placeholder="Enter your password again" 
+                        secureTextEntry={true}
+                        style={styles.textIntput}
+                        autoCapitalize="none" />
+                </View>       
+
                 <View style = {styles.button}>
                     <LinearGradient
                     colors = {['#08d4c4', '#01ab9d']}
