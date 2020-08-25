@@ -21,7 +21,7 @@ import Make from "./assets/screens/Make";
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <RootStackScreen/> */}
+      <RootStackScreen/>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeStackScreen} />
         <Drawer.Screen name="Help" component={HelpStackScreen} />
