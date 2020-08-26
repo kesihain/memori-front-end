@@ -19,15 +19,20 @@ import Make from "./assets/screens/Make";
 
 
 export default function App() {
+  const [location, setLocation] = useState([
+    { id: 1, name: "Next Academy", latitude:3.1350424, longitude:101.6299529 }
+  ]);
   return (
-    <NavigationContainer>
-      <RootStackScreen/>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeStackScreen} />
-        <Drawer.Screen name="Help" component={HelpStackScreen} />
-        <Drawer.Screen name="Settings" component={SettingsScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <locationContext.Provider value={{location,setLocation}}>
+      <NavigationContainer>
+        {/* <RootStackScreen/> */}
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Home" component={HomeStackScreen} />
+          <Drawer.Screen name="Help" component={HelpStackScreen} />
+          <Drawer.Screen name="Settings" component={SettingsScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </locationContext.Provider>
   );
 }
 
@@ -37,6 +42,8 @@ const MakeStack = createStackNavigator();
 const LocationsStack = createStackNavigator();
 const EditProfileStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+export const locationContext = React.createContext();
+
 
 const HomeStackScreen = ({navigation}) => (
   <HomeStack.Navigator screenOptions={{
@@ -60,7 +67,7 @@ const HomeStackScreen = ({navigation}) => (
           backgroundColor="#33cccc" 
           onPress ={()=> navigation.openDrawer()}>
           </Icon.Button>),
-         title: "MEMORI",
+         title: "MEMORI", 
          headerRight: () => (
         <Icon.Button name = "user"
         size = {25} 
