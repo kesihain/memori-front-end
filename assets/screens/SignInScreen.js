@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useState, useContext } from 'react';
 import {StyleSheet, Text, TextInput, View, Image, SafeAreaView,Button,TouchableOpacity, Dimensions, Alert, StatusBar} from "react-native";
-import { LinearGradient } from 'expo-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient';
+import axios from 'axios';
+import { locationContext } from '../../App';
 
 const SignInScreen = ({navigation}) => {
+    const [username,setUsername] = useState("");
+    const [password,setPassword] = useState("");
+    const {authenticated,setAuthenticated} = useContext(locationContext)
+    function handleSignIn(){
+        axios({
+            method: 'post',
+            url: 'http://192.168.1.67:5000/api/v1/login/',
+            data: {
+                username:username,
+                password:password
+            }
+        }).then(result=>{
+            setAuthenticated(true)
+            console.log(result.data)
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barstyle = "light-content"/>
@@ -17,6 +37,7 @@ const SignInScreen = ({navigation}) => {
                         placeholder="Enter your username" 
                         style={styles.textIntput}
                         autoCapitalize="none"
+                        onChangeText={(username)=>setUsername(username)}
                     />
                 </View>
 
@@ -26,17 +47,21 @@ const SignInScreen = ({navigation}) => {
                         placeholder="Enter your password" 
                         secureTextEntry={true}
                         style={styles.textIntput}
-                        autoCapitalize="none" />
+                        autoCapitalize="none" 
+                        onChangeText={(password)=>setPassword(password)} />
                 </View>     
                 <View style = {styles.button}>
-                    <LinearGradient
-                    colors = {['#08d4c4', '#01ab9d']}
-                    style = {styles.signIn}>
+                    <TouchableOpacity onPress={handleSignIn}>
+                        <LinearGradient
+                        colors = {['#08d4c4', '#01ab9d']}
+                        style = {styles.signIn}>
 
-                        <Text style ={[styles.textSign, {
-                            color: "#fff"
-                            }]}>Sign In</Text>
-                    </LinearGradient>
+                            <Text style ={[styles.textSign, {
+                                color: "#fff"
+                                }]}>Sign In</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+
                     <TouchableOpacity
                     onPress={() => navigation.navigate('SignUpScreen')}
                     style = {[styles.signIn, {
