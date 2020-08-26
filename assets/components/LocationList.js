@@ -1,14 +1,36 @@
-import React from "react";
-import { StyleSheet, Text, TextInput, Button, Alert, View, } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  Dimensions,
+  Button,
+  Alert,
+  View,
+} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { Content,List, ListItem,Left,Right,Icon } from "native-base";
+import { Content, List, ListItem, Left, Right, Icon } from "native-base";
+import BasicLocation from "../examples/BasicLocation";
+
+const componentMap = {
+  BasicLocation,
+};
 
 export default function LocationList({ location }) {
+  const [mode, setMode] = useState("BasicLocation");
+
+  const renderExample = () => {
+    const Component = componentMap[mode];
+    return <Component />;
+  };
   return (
     <View style={styles.container}>
       <Content>
+        <View style={styles.switchContainer}></View>
+        {/* <BasicLocation /> */}
+
         <List style={styles.list}>
-          {location.map(item=>(
+          {location.map((item) => (
             <ListItem key={item.id}>
               <Left>
                 <Text style={styles.listitem}>{item.name}</Text>
@@ -53,5 +75,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
+  },
+
+  switchContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 10,
+    flexWrap: "wrap",
+  },
+  switch: {
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "black",
+    marginVertical: 2,
+    width: Dimensions.get("window").width / 3,
   },
 });
