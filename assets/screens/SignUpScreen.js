@@ -1,8 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react';
 import {StyleSheet, Text, TextInput, View, Image, SafeAreaView,Button,TouchableOpacity, Dimensions, Alert, StatusBar} from "react-native";
-import { LinearGradient } from 'expo-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient';
+import axios from 'axios';
 
 const SignUpScreen = ({navigation}) => {
+    const [username,setUsername] = useState();
+    const [email,setEmail] = useState();
+    const [password,setPassword] = useState();
+    const [confirmPassword,setConfirmPassword] = useState();
+    function handleSignUp(){
+        if (password==confirmPassword){
+            axios({
+                method: 'post',
+                url: 'http://192.168.1.67:5000/api/v1/users/signup/',
+                data: {
+                    username,
+                    email,
+                    password
+                }
+            }).then(result=>{
+                console.log(result)
+                navigation.navigate('SignInScreen')
+            }).catch(error=>{
+                console.log(error)
+            })
+        }else{
+            console.log('Ensure password is the same')
+        }
+    }
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barstyle = "light-content"/>
@@ -17,6 +42,7 @@ const SignUpScreen = ({navigation}) => {
                         placeholder="Enter your email" 
                         style={styles.textIntput}
                         autoCapitalize="none"
+                        onChangeText={(text)=>setEmail(text)}
                     />
                 </View>
 
@@ -26,6 +52,7 @@ const SignUpScreen = ({navigation}) => {
                         placeholder="Create your username" 
                         style={styles.textIntput}
                         autoCapitalize="none"
+                        onChangeText={(text)=>setUsername(text)}
                     />
                 </View>     
 
@@ -35,7 +62,9 @@ const SignUpScreen = ({navigation}) => {
                         placeholder="Enter your password" 
                         secureTextEntry={true}
                         style={styles.textIntput}
-                        autoCapitalize="none" />
+                        autoCapitalize="none" 
+                        onChangeText={(text)=>setPassword(text)}    
+                    />
                 </View>
 
                 <Text style={styles.text_footer, {marginTop: 35}}>Confirm Password</Text>
@@ -44,20 +73,25 @@ const SignUpScreen = ({navigation}) => {
                         placeholder="Enter your password again" 
                         secureTextEntry={true}
                         style={styles.textIntput}
-                        autoCapitalize="none" />
+                        autoCapitalize="none" 
+                        onChangeText={(text)=>setConfirmPassword(text)}
+                    />
                 </View>       
 
                 <View style = {styles.button}>
-                    <LinearGradient
-                    colors = {['#08d4c4', '#01ab9d']}
-                    style = {styles.signIn}>
-
-                        <Text style ={[styles.textSign, {
-                            color: "#fff"
-                            }]}>Sign In</Text>
-                    </LinearGradient>
                     <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUpScreen')}
+                        onPress={() => navigation.navigate('SignUpScreen')} >
+                        <LinearGradient
+                        colors = {['#08d4c4', '#01ab9d']}
+                        style = {styles.signIn}>
+
+                            <Text style ={[styles.textSign, {
+                                color: "#fff"
+                                }]}>Sign In</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={handleSignUp}
                     style = {[styles.signIn, {
                         borderColor: '#009387',
                         borderWidth: 1,
