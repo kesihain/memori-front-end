@@ -19,17 +19,22 @@ import Make from "./assets/screens/Make";
 
 
 export default function App() {
+  const [authenticated,setAuthenticated] = useState(false)
   const [location, setLocation] = useState([
     { id: 1, name: "Next Academy", latitude:3.1350424, longitude:101.6299529 }
   ]);
   return (
-    <locationContext.Provider value={{location,setLocation}}>
+    <locationContext.Provider value={{location,setLocation,authenticated,setAuthenticated}}>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home">
-          <Drawer.Screen name="Home" component={HomeStackScreen} />
-          <Drawer.Screen name="Help" component={HelpStackScreen} />
-          <Drawer.Screen name="Settings" component={SettingsScreen} />
-        </Drawer.Navigator>
+      {
+        !authenticated?
+          <RootStackScreen/>:
+          <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen name="Home" component={HomeStackScreen} />
+            <Drawer.Screen name="Help" component={HelpStackScreen} />
+            <Drawer.Screen name="Settings" component={SettingsScreen} />
+          </Drawer.Navigator>
+      }
       </NavigationContainer>
     </locationContext.Provider>
   );
@@ -42,6 +47,7 @@ const LocationsStack = createStackNavigator();
 const EditProfileStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 export const locationContext = React.createContext();
+
 
 
 const HomeStackScreen = ({navigation}) => (
