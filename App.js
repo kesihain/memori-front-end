@@ -14,6 +14,7 @@ import EditProfile from "./assets/screens/EditProfile";
 
 import RootStackScreen from "./assets/screens/RootStackScreen";
 import Make from "./assets/screens/Make";
+import Remember from "./assets/screens/Remember";
 
 export default function App() {
   return (
@@ -30,9 +31,10 @@ export default function App() {
 
 const HomeStack = createStackNavigator();
 const HelpStack = createStackNavigator();
+const MakeStack = createStackNavigator();
 const LocationsStack = createStackNavigator();
 const EditProfileStack = createStackNavigator();
-const MakeStack = createStackNavigator();
+const RememberStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const HomeStackScreen = ({ navigation }) => {
@@ -85,6 +87,13 @@ const HomeStackScreen = ({ navigation }) => {
         component={LocationsScreen}
         options={{
           title: "LOCATIONS",
+        }}
+      />
+      <RememberStack.Screen
+        name="remember"
+        component={Remember}
+        options={{
+          title: "REMEMBER",
         }}
       />
       <EditProfileStack.Screen

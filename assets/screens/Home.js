@@ -23,13 +23,13 @@ function HomeScreen({ navigation }) {
       />
       <View style={styles.btns}>
         <AwesomeButtonRick
-          onPress={() => navigation.navigate("locations")}
+          onPress={() => navigation.navigate("Make")}
           type="secondary"
         >
           Make
         </AwesomeButtonRick>
         <AwesomeButtonRick
-          onPress={() => navigation.navigate("locations")}
+          onPress={() => navigation.navigate("remember")}
           type="secondary"
           title="Remember"
         >
