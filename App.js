@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, Settings } from "react-native";
+import React, {useEffect, useState} from "react";
+import { StyleSheet, Text, View, SafeAreaView, Settings, ActivityIndicator} from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -17,15 +17,24 @@ import Make from "./assets/screens/Make";
 import Remember from "./assets/screens/Remember";
 
 export default function App() {
+  const [authenticated,setAuthenticated] = useState(false)
+  const [location, setLocation] = useState([
+    { id: 1, name: "Next Academy", latitude:3.1350424, longitude:101.6299529 }
+  ]);
   return (
-    <NavigationContainer>
-      {/* <RootStackScreen/> */}
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeStackScreen} />
-        <Drawer.Screen name="Help" component={HelpStackScreen} />
-        <Drawer.Screen name="Settings" component={SettingsScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <locationContext.Provider value={{location,setLocation,authenticated,setAuthenticated}}>
+      <NavigationContainer>
+      {
+        !authenticated?
+          <RootStackScreen/>:
+          <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen name="Home" component={HomeStackScreen} />
+            <Drawer.Screen name="Help" component={HelpStackScreen} />
+            <Drawer.Screen name="Settings" component={SettingsScreen} />
+          </Drawer.Navigator>
+      }
+      </NavigationContainer>
+    </locationContext.Provider>
   );
 }
 
@@ -36,6 +45,9 @@ const LocationsStack = createStackNavigator();
 const EditProfileStack = createStackNavigator();
 const RememberStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+export const locationContext = React.createContext();
+
+
 
 const HomeStackScreen = ({ navigation }) => {
   return (
@@ -129,7 +141,7 @@ const HelpStackScreen = ({ navigation }) => (
             name="bars"
             color="white"
             size={25}
-            backgroundColor="#33cccc"
+            backgroundColor="#3399ff"
             onPress={() => navigation.openDrawer()}
           ></Icon.Button>
         ),
@@ -138,7 +150,7 @@ const HelpStackScreen = ({ navigation }) => (
           <Icon.Button
             name="user"
             size={25}
-            backgroundColor="#33cccc"
+            backgroundColor="#3399ff"
             onPress={() => navigation.navigate(EditProfile)}
           ></Icon.Button>
         ),

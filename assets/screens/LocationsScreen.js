@@ -1,5 +1,4 @@
-import React, { useState, Component } from "react";
-
+import React, { useState, Component, useContext } from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
 import LocationForm from "../components/LocationForm";
 import LocationList from "../components/LocationList";
@@ -16,19 +15,19 @@ import {
   ListItem,
 } from "native-base";
 import BasicLocation from "../examples/BasicLocation";
+import { locationContext } from "../../App";
 
 const componentMap = {
   BasicLocation,
 };
 export default function LocationsScreen({ navigation }) {
-  const [location, setLocation] = useState([{ id: 1, name: "Next Academy" }]);
+  const {location,setLocation}=useContext(locationContext)
   const [mode, setMode] = useState("BasicLocation");
 
   const renderExample = () => {
     const Component = componentMap[mode];
     return <Component />;
   };
-
   return (
     <View style={styles.container}>
       <Content
