@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   Modal,
   TextInput,
+  ScrollView,
   TouchableHighlight,
   View,
 } from "react-native";
 import { Button, List, Left, Content, Right, ListItem } from "native-base";
 import DropDownPicker from "react-native-dropdown-picker";
 import { SwipeListView } from "react-native-swipe-list-view";
+import Icon from "react-native-vector-icons/AntDesign";
 
 import Basic from "../examples/Basic";
 
@@ -22,7 +24,7 @@ const componentMap = {
 
 export default function Remember({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  // const [modalCanBeSeen, setModalCanBeSeen] = useState(false);
+  const [modalCanBeSeen, setModalCanBeSeen] = useState(false);
 
   const [mode, setMode] = useState("Basic");
 
@@ -31,16 +33,21 @@ export default function Remember({ navigation }) {
     return <Component />;
   };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Content
         padder
         contentContainerStyle={{ ...styles.container, ...{ width: "100%" } }}
       >
-        <Text style={styles.textinfo}>
-          this is where the info on the screen goes. or like i could talk about
-          other things too.
-        </Text>
-        <Modal
+        <TouchableHighlight
+          style={styles.openButton}
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          <Text style={styles.textStyle}>?</Text>
+        </TouchableHighlight>
+
+        <Modal //1
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -55,10 +62,7 @@ export default function Remember({ navigation }) {
               </Text>
 
               <TouchableHighlight
-                style={{
-                  ...styles.openButton,
-                  backgroundColor: "rgb(202, 110, 143)",
-                }}
+                style={styles.modalButton}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}
@@ -69,31 +73,235 @@ export default function Remember({ navigation }) {
           </View>
         </Modal>
 
-        <TouchableHighlight
-          style={styles.openButton}
-          onPress={() => {
-            setModalVisible(true);
+        <Modal //2
+          animationType="slide"
+          transparent={true}
+          visible={modalCanBeSeen}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
           }}
         >
-          <Text style={styles.textStyle}>Need some help?</Text>
-        </TouchableHighlight>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>edit your reminder...</Text>
+              <TextInput placeholder="blablabla" />
+
+              <TouchableHighlight
+                style={styles.modalButton}
+                onPress={() => {
+                  setModalCanBeSeen(!modalCanBeSeen);
+                }}
+              >
+                <Text style={styles.textStyle}>tutup modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
         <View style={styles.switchContainer}>
-          <Basic />
+          <List style={styles.list}>
+            <ListItem itemHeader first>
+              <Text style={styles.listTextHeader}>COMEDY</Text>
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Simon Mignolet</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+                onPress={() => {
+                  setModalCanBeSeen(true);
+                }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Nathaniel Clyne</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Dejan Lovren</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Dejan Lovren</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Dejan Lovren</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Dejan Lovren</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Dejan Lovren</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Dejan Lovren</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Dejan Lovren</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>Dejan Lovren</Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>
+                Dejan LovrenLovrenLovren Lovren Lovren LovrenLovrenLovren Lovren
+                LovrenLovrenLovrenLovren Lovren Lovrend
+              </Text>
+              <Icon
+                name="edit"
+                size={20}
+                color="white"
+                style={{ marginHorizontal: 25 }}
+              />
+              <Icon
+                style={styles.listIcons}
+                name="delete"
+                size={20}
+                color="white"
+              />
+            </ListItem>
+            <ListItem style={styles.listItem}>
+              <Text style={styles.listText}>
+                Dejan LovrenLovren LovrenLovren LovrenLovrenLovrenLovrenLovren
+                Lovren LovrenLovren LovrenLovren LovrenLovren Lovren
+                LovrenLovren LovrenLovren LovrenLovren
+              </Text>
+              <View style={styles.listIcons}>
+                <Icon
+                  name="edit"
+                  size={20}
+                  color="white"
+                  style={{ marginHorizontal: 25 }}
+                />
+                <Icon name="delete" size={20} color="white" />
+              </View>
+            </ListItem>
+          </List>
         </View>
       </Content>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#ffe6dd",
     backgroundColor: "#ffe6dd",
-    backgroundColor: "rgb(4, 110, 143)",
+    // backgroundColor: "rgb(4, 110, 143)",
     // backgroundColor: "rgb(0, 144, 193)",
-    alignItems: "center",
-    justifyContent: "center",
   },
   Accordion: {
     width: "100%",
@@ -141,12 +349,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  modalButton: {
+    backgroundColor: "rgb(32, 139, 195)",
+    borderColor: "rgb(32, 139, 195)",
+    borderWidth: 5,
+    borderRadius: 10,
+  },
   openButton: {
     backgroundColor: "rgb(172, 51, 94 )",
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    marginBottom: 80,
+    marginTop: 0,
+    marginBottom: 70,
+    marginLeft: 300,
   },
   textStyle: {
     color: "white",
@@ -189,16 +405,37 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 3,
     borderRadius: 20,
-    backgroundColor: "rgb(rgb(218, 221, 227))",
+    backgroundColor: "rgb(65, 97, 101)",
     width: 350,
     marginTop: 20,
   },
-  listitem: {},
+  listItem: {
+    // alignItems: "center",
+    justifyContent: "space-between",
+    // textAlign: "center",
+  },
+  listIcons: {
+    justifyContent: "space-evenly",
+    flexDirection: "row",
+  },
+  listText: {
+    width: "70%",
+    color: "white",
+    fontSize: 17,
+  },
+  listTextHeader: {
+    color: "white",
+    fontSize: 25,
+    fontWeight: "bold",
+    marginLeft: 100,
+  },
   switchContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginVertical: 50,
+    marginTop: 0,
+    marginBottom: 300,
     flexWrap: "wrap",
+    elevation: 2,
   },
   switch: {
     alignItems: "center",

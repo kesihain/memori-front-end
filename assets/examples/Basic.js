@@ -41,10 +41,10 @@ export default function Basic() {
     <TouchableHighlight
       onPress={() => console.log("ooooo you touch my tralala")}
       style={styles.rowFront}
-      underlayColor={"#AAA"}
+      underlayColor={"rgb(3, 139, 190)"}
     >
       <View>
-        <Text> {data.item.text} </Text>
+        <Text style={styles.listItem}> {data.item.text} </Text>
       </View>
     </TouchableHighlight>
   );
@@ -118,6 +118,7 @@ export default function Basic() {
             text: "Secret hideout",
           },
         ]}
+        style={styles.list}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
         leftOpenValue={75}
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   },
   rowFront: {
     alignItems: "center",
-    backgroundColor: "#CCC",
+    backgroundColor: "rgb(5, 119, 176)",
     borderBottomColor: "black",
     borderBottomWidth: 1,
     justifyContent: "center",
@@ -163,12 +164,13 @@ const styles = StyleSheet.create({
     top: 0,
     width: 75,
   },
+
   backRightBtnLeft: {
-    backgroundColor: "blue",
+    backgroundColor: "rgb(123, 67, 91)",
     right: 75,
   },
   backRightBtnRight: {
-    backgroundColor: "red",
+    backgroundColor: "rgb(218, 102, 123)",
     right: 0,
   },
   centeredView: {
@@ -177,6 +179,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
+  list: {
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 10,
+  },
   textC: {
     marginVertical: 10,
     fontSize: 20,
@@ -184,6 +191,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 10,
     borderColor: "rgb(238, 124, 109)",
+  },
+  listItem: {
+    color: "white",
+    fontSize: 17,
   },
   modalView: {
     margin: 20,
