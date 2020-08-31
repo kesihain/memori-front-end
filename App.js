@@ -22,25 +22,47 @@ import EditProfile from "./assets/screens/EditProfile";
 import RootStackScreen from "./assets/screens/RootStackScreen";
 import Make from "./assets/screens/Make";
 import Remember from "./assets/screens/Remember";
+import Axios from "axios";
+import AsyncStorage from '@react-native-community/async-storage'
+import { set } from "react-native-reanimated";
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions'
 
 export default function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const requestPermission = async ()=>{
+    const { status} = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted'){
+      await Location.requestPermissionsAsync()
+    }
+  }
+  requestPermission()
   const [location, setLocation] = useState([
-    {
-      key: 1,
-      name: "Next Academy",
-      latitude: 3.1350424,
-      longitude: 101.6299529,
-    },
+    { id: 1, name: "Next Academy",fullAdress:'AG-7, Glomac Damansara, Jalan Damansara, Tmn Tun Dr Ismail, 60000', latitude:3.1350424, longitude:101.6299529 }
   ]);
+  const [jwt,setJwt] = useState("");
+  useEffect(()=>{
+    AsyncStorage.getItem('@jwt').then(token=>{
+      Axios({
+        method:'GET',
+        url: 'http://192.168.1.67:5000/api/v1/location/show',
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      }).then(result=>{
+        console.log(result.data)
+        setLocation(result.data)
+      }).catch(error=>{
+        console.log(error.response)
+      })
+      setJwt(token)
+    })
+  },[])
   return (
-    <locationContext.Provider
-      value={{ location, setLocation, authenticated, setAuthenticated }}
-    >
+    <locationContext.Provider value={{location,setLocation,jwt,setJwt}}>
       <NavigationContainer>
-        {
-          // !authenticated?
-          // <RootStackScreen/>:
+      {
+        !jwt?
+          <RootStackScreen/>:
           <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen name="Home" component={HomeStackScreen} />
             <Drawer.Screen name="Help" component={HelpStackScreen} />
