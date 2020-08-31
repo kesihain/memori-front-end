@@ -11,8 +11,12 @@ import {
   Alert,
 } from "react-native";
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
+import AsyncStorage from "@react-native-community/async-storage";
 
 function HomeScreen({ navigation }) {
+  AsyncStorage.getItem('@jwt').then(result=>{
+    console.log(result)
+  })
   return (
     <SafeAreaView style={styles.container}>
       <Image

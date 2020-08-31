@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {StyleSheet, Text, TextInput, View, Image, SafeAreaView,Button,TouchableOpacity, Dimensions, Alert, StatusBar} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const SignUpScreen = ({navigation}) => {
     const [username,setUsername] = useState();
@@ -29,7 +30,7 @@ const SignUpScreen = ({navigation}) => {
         }
     }
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <StatusBar backgroundColor='#009387' barstyle = "light-content"/>
             <View style={styles.header}>
                 <Text style={styles.text_header}>Create an Account</Text>
@@ -103,7 +104,7 @@ const SignUpScreen = ({navigation}) => {
                     </TouchableOpacity>
                 </View>       
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
