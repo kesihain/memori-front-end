@@ -1,5 +1,12 @@
-import React, {useEffect, useState} from "react";
-import { StyleSheet, Text, View, SafeAreaView, Settings, ActivityIndicator} from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Settings,
+  ActivityIndicator,
+} from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -61,7 +68,7 @@ export default function App() {
             <Drawer.Screen name="Help" component={HelpStackScreen} />
             <Drawer.Screen name="Settings" component={SettingsScreen} />
           </Drawer.Navigator>
-      }
+        }
       </NavigationContainer>
     </locationContext.Provider>
   );
@@ -75,8 +82,6 @@ const EditProfileStack = createStackNavigator();
 const RememberStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 export const locationContext = React.createContext();
-
-
 
 const HomeStackScreen = ({ navigation }) => {
   return (

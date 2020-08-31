@@ -30,7 +30,10 @@ export default function Make({ navigation }) {
         padder
         contentContainerStyle={{ ...styles.container, ...{ width: "100%" } }}
       >
-        <Text style={styles.text}>choose the location:</Text>
+        {/* <Text style={styles.text}>
+          infoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfo
+        </Text> */}
+        {/* <Text style={styles.text}>choose the location:</Text> */}
         <Modal
           animationType="slide"
           transparent={true}
@@ -46,12 +49,12 @@ export default function Make({ navigation }) {
               </Text>
 
               <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                style={styles.modalButton}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}
               >
-                <Text style={styles.textStyle}>Hide Modal</Text>
+                <Text style={styles.textStyleModal}>Hide Modal</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -63,8 +66,18 @@ export default function Make({ navigation }) {
             setModalVisible(true);
           }}
         >
-          <Text style={styles.textStyle}>Need some help?</Text>
+          <Text style={styles.textStyle}>?</Text>
         </TouchableHighlight>
+        <View>
+          <Text style={styles.textStylo}>Enter reminder:</Text>
+        </View>
+
+        <TextInput
+          placeholder="new reminder"
+          style={styles.input}
+          // onChangeText={goalInputHandler}
+          // value={enteredGoal}
+        />
 
         <DropDownPicker
           items={[
@@ -84,12 +97,12 @@ export default function Make({ navigation }) {
             },
           ]}
           defaultValue={"france"}
-          containerStyle={{ height: 40, width: 200 }}
-          style={{ backgroundColor: "rgb(114, 206, 224)" }}
+          containerStyle={{ height: 70, width: 280 }}
+          style={{ backgroundColor: "white" }}
           itemStyle={{
             justifyContent: "flex-start",
           }}
-          dropDownStyle={{ backgroundColor: "rgb(102, 165, 200)" }}
+          dropDownStyle={{ backgroundColor: "rgb(114, 206, 224)" }}
           onChangeItem={(item) =>
             this.setState({
               country: item.value,
@@ -97,23 +110,20 @@ export default function Make({ navigation }) {
           }
         />
 
-        <Button style={styles.button}>
-          <Text style={styles.buttontext}> Set new location! </Text>
-        </Button>
-
-        {/* MODAL TO ASK IF SURE */}
-        {/* MODAL TO ASK IF SURE */}
-        {/* MODAL TO ASK IF SURE */}
-
-        <TextInput
-          placeholder="new reminder"
-          style={styles.input}
-          // onChangeText={goalInputHandler}
-          // value={enteredGoal}
-        />
         <Button style={styles.button2}>
-          <Text style={styles.buttontext}>ADD NEW REMINDER</Text>
+          <Text style={styles.buttontext2}>ADD NEW REMINDER</Text>
         </Button>
+
+        <Button style={styles.button3}>
+          <Text style={styles.buttontext3}>SET NEW LOCATION</Text>
+        </Button>
+        {/* <Button style={styles.button}>
+          <Text style={styles.buttontext}> Set new location! </Text>
+        </Button> */}
+
+        {/* MODAL TO ASK IF SURE */}
+        {/* MODAL TO ASK IF SURE */}
+        {/* MODAL TO ASK IF SURE */}
       </Content>
     </View>
   );
@@ -123,8 +133,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: "rgb(255, 255, 255 )",
-    backgroundColor: "rgb(237, 240, 240 )",
-    // backgroundColor: "#ffe6dd",
+    // backgroundColor: "rgb(237, 240, 240 )",
+    backgroundColor: "#ffe6dd",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -161,17 +171,50 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  modalButton: {
+    backgroundColor: "rgb(32, 139, 195)",
+    borderColor: "rgb(32, 139, 195)",
+    borderWidth: 5,
+    borderRadius: 10,
+  },
+  button: {
+    justifyContent: "center",
+    borderWidth: 200,
+    backgroundColor: "rgb(244, 213, 141)",
+    borderColor: "black",
+    alignItems: "center",
+    width: 200,
+    marginTop: 20,
+    marginLeft: 48,
+    justifyContent: "center",
+  },
   openButton: {
     backgroundColor: "rgb(96, 115, 146)",
-    borderRadius: 20,
+    borderRadius: 50,
     padding: 10,
     elevation: 2,
-    marginBottom: 150,
+    height: 35,
+    marginBottom: 0,
+    marginLeft: 320,
+    marginTop: 20,
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: 15,
+    paddingBottom: 5,
+  },
+  textStyleModal: {
+    padding: 3,
+    color: "white",
+    fontWeight: "bold",
+  },
+  textStylo: {
+    color: "darkslategray",
+    fontSize: 40,
+    textAlign: "center",
+    marginBottom: 30,
   },
   modalText: {
     marginBottom: 15,
@@ -183,31 +226,39 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     backgroundColor: "white",
-    marginVertical: 10,
-  },
-  button: {
-    borderColor: "black",
-    backgroundColor: "rgb(236, 64, 103)",
-    borderWidth: 2,
-    // marginLeft: 90, //HOW DO I CENTER IT WITHOUT USING MARGIN
-    width: 200,
-    alignSelf: "center",
-    marginTop: 20,
-    marginBottom: 70,
+    marginTop: 10,
+    marginBottom: 10,
   },
   button2: {
     borderColor: "black",
-    backgroundColor: "rgb(236, 64, 103)",
-    borderWidth: 2,
-    width: 200,
+    backgroundColor: "rgb(244, 213, 141)",
+    borderWidth: 1,
+    width: 250,
+    paddingLeft: 23,
     alignSelf: "center",
-    marginBottom: 150,
-    marginTop: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    marginTop: 300,
   },
-  buttontext: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 30,
+  buttontext2: {
+    color: "rgb(238, 124, 109)",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  button3: {
+    marginBottom: 50,
+    marginLeft: 50,
+    backgroundColor: "rgb(244, 213, 141)",
+    borderRadius: 10,
+    width: 250,
+    borderWidth: 1,
+    borderColor: "black",
+  },
+  buttontext3: {
+    fontSize: 15,
+    color: "rgb(238, 124, 109)",
+    paddingLeft: 28,
+    fontWeight: "bold",
     fontSize: 20,
   },
   text: {
