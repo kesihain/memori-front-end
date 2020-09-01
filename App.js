@@ -1,5 +1,12 @@
-import React, {useEffect, useState} from "react";
-import { StyleSheet, Text, View, SafeAreaView, Settings, ActivityIndicator} from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Settings,
+  ActivityIndicator,
+} from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -14,26 +21,52 @@ import EditProfile from "./assets/screens/EditProfile";
 
 import RootStackScreen from "./assets/screens/RootStackScreen";
 import Make from "./assets/screens/Make";
-import Remember from "./assets/screens/Remember";
+import Remember from "./assets/screens/Remember"
 import { Button } from "react-native-paper";
+import Axios from "axios";
+import AsyncStorage from '@react-native-community/async-storage';
+import { set } from "react-native-reanimated";
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 export default function App() {
-  const [authenticated,setAuthenticated] = useState(false)
-  const [location, setLocation] = useState([
-    { id: 1, name: "Next Academy", latitude:3.1350424, longitude:101.6299529 }
-  ]);
+  const requestPermission = async ()=>{
+    const { status} = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted'){
+      await Location.requestPermissionsAsync()
+    }
+  }
+  requestPermission()
+  const [location, setLocation] = useState([]);
+  const [jwt,setJwt] = useState("");
+  useEffect(()=>{
+    AsyncStorage.getItem('@jwt').then(token=>{
+      Axios({
+        method:'GET',
+        url: 'http://192.168.1.67:5000/api/v1/location/show',
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      }).then(result=>{
+        setLocation(result.data)
+      }).catch(error=>{
+        console.log(error.response)
+      })
+      setJwt(token)
+    })
+  },[])
   return (
-    <locationContext.Provider value={{location,setLocation,authenticated,setAuthenticated}}>
+    <locationContext.Provider value={{location,setLocation,jwt,setJwt}}>
       <NavigationContainer>
-      {/* {
-        !authenticated?
-          <RootStackScreen/>: */}
+      {
+        !jwt?
+          <RootStackScreen/>:
           <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen name="Home" component={HomeStackScreen} />
             <Drawer.Screen name="Help" component={HelpStackScreen} />
             <Drawer.Screen name="Settings" component={SettingsStackScreen} />
           </Drawer.Navigator>
-      {/* } */}
+        }
       </NavigationContainer>
     </locationContext.Provider>
   );
@@ -47,8 +80,6 @@ const LocationsStack = createStackNavigator();
 const RememberStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 export const locationContext = React.createContext();
-
-
 
 const HomeStackScreen = ({ navigation }) => {
   return (

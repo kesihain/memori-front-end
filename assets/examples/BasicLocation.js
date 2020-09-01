@@ -10,11 +10,11 @@ import {
 import { SwipeListView } from "react-native-swipe-list-view";
 
 export default function BasicLocation({ location }) {
-  const [listData, setListData] = useState(
-    Array(20)
-      .fill("")
-      .map((_, i) => ({ id: `${i}`, name: `location #${i}` }))
-  );
+  // const [location, setListData] = useState(
+  //   Array(20)
+  //     .fill("")
+  //     .map((_, i) => ({ key: `${i}`, name: `location #${i}` }))
+  // );
 
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
@@ -24,8 +24,8 @@ export default function BasicLocation({ location }) {
 
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
-    const newData = [...listData];
-    const prevIndex = listData.findIndex((location) => location.id === rowKey);
+    const newData = [...location];
+    const prevIndex = location.findIndex((location) => location.key === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
   };
@@ -34,30 +34,32 @@ export default function BasicLocation({ location }) {
     console.log("This row opened", rowKey);
   };
 
-  const renderItem = (location) => (
-    <TouchableHighlight
-      onPress={() => console.log("ooooo you touch my tralala")}
-      style={styles.rowFront}
-      underlayColor={"#AAA"}
-    >
-      <View>
-        <Text> {data.location.name} </Text>
-      </View>
-    </TouchableHighlight>
-  );
+  const renderItem = ({ item }) => {
+    return (
+      <TouchableHighlight
+        onPress={() => console.log("ooooo you touch my tralala")}
+        style={styles.rowFront}
+        underlayColor={"#AAA"}
+      >
+        <View>
+          <Text> {item.name} </Text>
+        </View>
+      </TouchableHighlight>
+    );
+  };
 
   const renderHiddenItem = (location, rowMap) => (
     <View style={styles.rowBack}>
       <Text>Left</Text>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnLeft]}
-        onPress={() => closeRow(rowMap, data.location.id)}
+        onPress={() => closeRow(rowMap, location.key)}
       >
         <Text style={styles.backTextWhite}>Edit</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}
-        onPress={() => deleteRow(rowMap, data.location.id)}
+        onPress={() => deleteRow(rowMap, location.key)}
       >
         <Text style={styles.backTextWhite}>Delete</Text>
       </TouchableOpacity>
@@ -67,18 +69,18 @@ export default function BasicLocation({ location }) {
   return (
     <View style={styles.container}>
       <SwipeListView
-        data={{ location }}
+        data={location}
         // data={[
         //   {
-        //     id: 1,
+        //     key: 1,
         //     name: "Home",
         //   },
         //   {
-        //     id: 2,
+        //     key: 2,
         //     name: "Work",
         //   },
         //   {
-        //     id: 3,
+        //     key: 3,
         //     name: "Secret hideout",
         //   },
         // ]}

@@ -21,7 +21,7 @@ const componentMap = {
   BasicLocation,
 };
 export default function LocationsScreen({ navigation }) {
-  const {location,setLocation}=useContext(locationContext)
+  const { location, setLocation } = useContext(locationContext);
   const [mode, setMode] = useState("BasicLocation");
 
   const renderExample = () => {

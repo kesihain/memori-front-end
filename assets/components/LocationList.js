@@ -30,8 +30,8 @@ export default function LocationList({ location }) {
         {/* <BasicLocation /> */}
 
         <List style={styles.list}>
-          {location.map((item) => (
-            <ListItem key={item.id}>
+          {location.map((item,i) => (
+            <ListItem key={`locate${i}`}>
               <Left>
                 <Text style={styles.listitem}>{item.name}</Text>
               </Left>

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,6 +11,10 @@ import {
 import { Button, List, Content, Left, Right, ListItem } from "native-base";
 import DropDownPicker from "react-native-dropdown-picker";
 import Icon from "react-native-vector-icons/Feather";
+import {locationContext} from '../../App';
+import Axios from "axios";
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 // const dataArray = [
 //   {
@@ -23,14 +27,52 @@ import Icon from "react-native-vector-icons/Feather";
 export default function Make({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalSeen, setModalSeen] = useState(false);
-
+  const {location,jwt,setJwt} = useContext(locationContext);
+  const [items,setItems] = useState([]);
+  const [locationId,setLocationId] = useState(0);
+  const [reminder,setReminder] = useState("");
+  useEffect(()=>{
+    let pickerItems = location.map((item,i)=>(
+    {
+      label: item.name,
+      value: item.id,
+      icon:()=>(
+        <Icon key={item.id} name='flag' size={18} color="rgb(155, 29, 32)" />
+      )
+    }
+  ))
+  setItems(pickerItems)
+  },[])
+  function makeReminder(){
+    AsyncStorage.getItem('@jwt').then(result=>{
+      setJwt(result);
+    })    
+    Axios({
+      method:'POST',
+      url:'http://192.168.1.67:5000/api/v1/reminder/create',
+      headers:{
+        Authorization:`Bearer ${jwt}`
+      },
+      data:{
+        location_id:locationId,item_name:reminder
+      }
+    }).then(result=>{
+      setLocationId(null)
+      setReminder("")
+    }).catch(error=>{
+      console.log(error)
+    })
+  }
   return (
     <View style={styles.container}>
       <Content
         padder
         contentContainerStyle={{ ...styles.container, ...{ width: "100%" } }}
       >
-        <Text style={styles.text}>choose the location:</Text>
+        {/* <Text style={styles.text}>
+          infoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfo
+        </Text> */}
+        {/* <Text style={styles.text}>choose the location:</Text> */}
         <Modal
           animationType="slide"
           transparent={true}
@@ -46,12 +88,12 @@ export default function Make({ navigation }) {
               </Text>
 
               <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                style={styles.modalButton}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}
               >
-                <Text style={styles.textStyle}>Hide Modal</Text>
+                <Text style={styles.textStyleModal}>Hide Modal</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -63,57 +105,45 @@ export default function Make({ navigation }) {
             setModalVisible(true);
           }}
         >
-          <Text style={styles.textStyle}>Need some help?</Text>
+          <Text style={styles.textStyle}>?</Text>
         </TouchableHighlight>
-
-        <DropDownPicker
-          items={[
-            {
-              label: "UK",
-              value: "uk",
-              icon: () => (
-                <Icon name="flag" size={18} color="rgb(155, 29, 32)" />
-              ),
-            },
-            {
-              label: "France",
-              value: "france",
-              icon: () => (
-                <Icon name="flag" size={18} color="rgb(155, 29, 32)" />
-              ),
-            },
-          ]}
-          defaultValue={"france"}
-          containerStyle={{ height: 40, width: 200 }}
-          style={{ backgroundColor: "rgb(114, 206, 224)" }}
-          itemStyle={{
-            justifyContent: "flex-start",
-          }}
-          dropDownStyle={{ backgroundColor: "rgb(102, 165, 200)" }}
-          onChangeItem={(item) =>
-            this.setState({
-              country: item.value,
-            })
-          }
-        />
-
-        <Button style={styles.button}>
-          <Text style={styles.buttontext}> Set new location! </Text>
-        </Button>
-
-        {/* MODAL TO ASK IF SURE */}
-        {/* MODAL TO ASK IF SURE */}
-        {/* MODAL TO ASK IF SURE */}
+        <View>
+          <Text style={styles.textStylo}>Enter reminder:</Text>
+        </View>
 
         <TextInput
           placeholder="new reminder"
           style={styles.input}
-          // onChangeText={goalInputHandler}
-          // value={enteredGoal}
+          onChangeText={text=>setReminder(text)}
+          value={reminder}
         />
-        <Button style={styles.button2}>
-          <Text style={styles.buttontext}>ADD NEW REMINDER</Text>
+
+        <DropDownPicker
+          items={items}
+          containerStyle={{ height: 70, width: 280 }}
+          style={{ backgroundColor: "white" }}
+          itemStyle={{
+            justifyContent: "flex-start",
+          }}
+          dropDownStyle={{ backgroundColor: "rgb(114, 206, 224)" }}
+          onChangeItem={(item) =>
+           setLocationId(item.value)
+          }
+        />
+
+        <Button style={styles.button2} onPress={makeReminder}>
+          <Text style={styles.buttontext2}>ADD NEW REMINDER</Text>
         </Button>
+        <Button style={styles.button3}>
+          <Text style={styles.buttontext3}>SET NEW LOCATION</Text>
+        </Button>
+        {/* <Button style={styles.button}>
+          <Text style={styles.buttontext}> Set new location! </Text>
+        </Button> */}
+
+        {/* MODAL TO ASK IF SURE */}
+        {/* MODAL TO ASK IF SURE */}
+        {/* MODAL TO ASK IF SURE */}
       </Content>
     </View>
   );
@@ -123,8 +153,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: "rgb(255, 255, 255 )",
-    backgroundColor: "rgb(237, 240, 240 )",
-    // backgroundColor: "#ffe6dd",
+    // backgroundColor: "rgb(237, 240, 240 )",
+    backgroundColor: "#ffe6dd",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -161,17 +191,50 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  modalButton: {
+    backgroundColor: "rgb(32, 139, 195)",
+    borderColor: "rgb(32, 139, 195)",
+    borderWidth: 5,
+    borderRadius: 10,
+  },
+  button: {
+    justifyContent: "center",
+    borderWidth: 200,
+    backgroundColor: "rgb(244, 213, 141)",
+    borderColor: "black",
+    alignItems: "center",
+    width: 200,
+    marginTop: 20,
+    marginLeft: 48,
+    justifyContent: "center",
+  },
   openButton: {
     backgroundColor: "rgb(96, 115, 146)",
-    borderRadius: 20,
+    borderRadius: 50,
     padding: 10,
     elevation: 2,
-    marginBottom: 150,
+    height: 35,
+    marginBottom: 0,
+    marginLeft: 320,
+    marginTop: 20,
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: 15,
+    paddingBottom: 5,
+  },
+  textStyleModal: {
+    padding: 3,
+    color: "white",
+    fontWeight: "bold",
+  },
+  textStylo: {
+    color: "darkslategray",
+    fontSize: 40,
+    textAlign: "center",
+    marginBottom: 30,
   },
   modalText: {
     marginBottom: 15,
@@ -183,31 +246,39 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     backgroundColor: "white",
-    marginVertical: 10,
-  },
-  button: {
-    borderColor: "black",
-    backgroundColor: "rgb(236, 64, 103)",
-    borderWidth: 2,
-    // marginLeft: 90, //HOW DO I CENTER IT WITHOUT USING MARGIN
-    width: 200,
-    alignSelf: "center",
-    marginTop: 20,
-    marginBottom: 70,
+    marginTop: 10,
+    marginBottom: 10,
   },
   button2: {
     borderColor: "black",
-    backgroundColor: "rgb(236, 64, 103)",
-    borderWidth: 2,
-    width: 200,
+    backgroundColor: "rgb(244, 213, 141)",
+    borderWidth: 1,
+    width: 250,
+    paddingLeft: 23,
     alignSelf: "center",
-    marginBottom: 150,
-    marginTop: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    marginTop: 300,
   },
-  buttontext: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 30,
+  buttontext2: {
+    color: "rgb(238, 124, 109)",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  button3: {
+    marginBottom: 50,
+    marginLeft: 50,
+    backgroundColor: "rgb(244, 213, 141)",
+    borderRadius: 10,
+    width: 250,
+    borderWidth: 1,
+    borderColor: "black",
+  },
+  buttontext3: {
+    fontSize: 15,
+    color: "rgb(238, 124, 109)",
+    paddingLeft: 28,
+    fontWeight: "bold",
     fontSize: 20,
   },
   text: {

@@ -3,22 +3,25 @@ import {StyleSheet, Text, TextInput, View, Image, SafeAreaView,Button,TouchableO
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
 import { locationContext } from '../../App';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const SignInScreen = ({navigation}) => {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
-    const {authenticated,setAuthenticated} = useContext(locationContext)
+    const {jwt,setJwt} = useContext(locationContext)
     function handleSignIn(){
         axios({
             method: 'post',
-            url: 'http://192.168.1.97:5000/api/v1/login/',
+            url: 'http://192.168.1.67:5000/api/v1/login/',
             data: {
                 username:username,
                 password:password
             }
         }).then(result=>{
             setAuthenticated(true)
-            console.log(result.data)
+            // console.log(result.data.auth_token)
+            AsyncStorage.setItem('@jwt',result.data.auth_token)
+            setJwt(result.data.auth_token)
         }).catch(error=>{
             console.log(error)
         })
