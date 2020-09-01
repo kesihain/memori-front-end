@@ -23,10 +23,10 @@ import RootStackScreen from "./assets/screens/RootStackScreen";
 import Make from "./assets/screens/Make";
 import Remember from "./assets/screens/Remember";
 import Axios from "axios";
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage';
 import { set } from "react-native-reanimated";
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions'
+import * as Permissions from 'expo-permissions';
 
 export default function App() {
   const requestPermission = async ()=>{
@@ -36,9 +36,7 @@ export default function App() {
     }
   }
   requestPermission()
-  const [location, setLocation] = useState([
-    { id: 1, name: "Next Academy",fullAdress:'AG-7, Glomac Damansara, Jalan Damansara, Tmn Tun Dr Ismail, 60000', latitude:3.1350424, longitude:101.6299529 }
-  ]);
+  const [location, setLocation] = useState([]);
   const [jwt,setJwt] = useState("");
   useEffect(()=>{
     AsyncStorage.getItem('@jwt').then(token=>{
@@ -49,7 +47,6 @@ export default function App() {
           Authorization:`Bearer ${token}`
         }
       }).then(result=>{
-        console.log(result.data)
         setLocation(result.data)
       }).catch(error=>{
         console.log(error.response)

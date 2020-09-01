@@ -42,9 +42,9 @@ export default function LocationsScreen({ navigation }) {
           location={location}
           setLocation={setLocation}
         ></LocationForm>
-        <BasicLocation location={location} />
+        {/* <BasicLocation location={location} /> */}
 
-        {/* <LocationList location={location}></LocationList> */}
+        <LocationList location={location}></LocationList>
       </Content>
     </View>
   );

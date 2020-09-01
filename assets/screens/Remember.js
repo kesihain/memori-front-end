@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -17,6 +17,10 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import Icon from "react-native-vector-icons/AntDesign";
 
 import Basic from "../examples/Basic";
+import { locationContext } from "../../App";
+import AsyncStorage from '@react-native-community/async-storage';
+import Axios from 'axios'
+
 
 const componentMap = {
   Basic,
@@ -27,7 +31,22 @@ export default function Remember({ navigation }) {
   const [modalCanBeSeen, setModalCanBeSeen] = useState(false);
 
   const [mode, setMode] = useState("Basic");
-
+  const [reminders,setReminders] = useState([]);
+  useEffect(()=>{
+    AsyncStorage.getItem('@jwt').then(token=>{
+      Axios({
+        method:'GET',
+        url: 'http://192.168.1.67:5000/api/v1/reminder/show',
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      }).then(result=>{
+        setReminders(result.data)
+      }).catch(error=>{
+        console.log(error.response)
+      })
+    })
+  },[])
   const renderExample = () => {
     const Component = componentMap[mode];
     return <Component />;
@@ -102,193 +121,27 @@ export default function Remember({ navigation }) {
             <ListItem itemHeader first>
               <Text style={styles.listTextHeader}>COMEDY</Text>
             </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Simon Mignolet</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-                onPress={() => {
-                  setModalCanBeSeen(true);
-                }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Nathaniel Clyne</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Dejan Lovren</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Dejan Lovren</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Dejan Lovren</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Dejan Lovren</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Dejan Lovren</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Dejan Lovren</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Dejan Lovren</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>Dejan Lovren</Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>
-                Dejan LovrenLovrenLovren Lovren Lovren LovrenLovrenLovren Lovren
-                LovrenLovrenLovrenLovren Lovren Lovrend
-              </Text>
-              <Icon
-                name="edit"
-                size={20}
-                color="white"
-                style={{ marginHorizontal: 25 }}
-              />
-              <Icon
-                style={styles.listIcons}
-                name="delete"
-                size={20}
-                color="white"
-              />
-            </ListItem>
-            <ListItem style={styles.listItem}>
-              <Text style={styles.listText}>
-                Dejan LovrenLovren LovrenLovren LovrenLovrenLovrenLovrenLovren
-                Lovren LovrenLovren LovrenLovren LovrenLovren Lovren
-                LovrenLovren LovrenLovren LovrenLovren
-              </Text>
-              <View style={styles.listIcons}>
+            {reminders.map(item=>(
+              <ListItem key={item.id} style={styles.listItem}>
+                <Text style={styles.listText}>{item.item}</Text>
                 <Icon
                   name="edit"
                   size={20}
                   color="white"
                   style={{ marginHorizontal: 25 }}
+                  onPress={() => {
+                    setModalCanBeSeen(true);
+                  }}
                 />
-                <Icon name="delete" size={20} color="white" />
-              </View>
-            </ListItem>
+                <Icon
+                  style={styles.listIcons}
+                  name="delete"
+                  size={20}
+                  color="white"
+                />
+              </ListItem>
+            ))
+            }
           </List>
         </View>
       </Content>
