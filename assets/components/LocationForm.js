@@ -40,7 +40,7 @@ export default function LocationForm({ location, setLocation }) {
     if (address.length>0 && name.length>0){
       Axios({
         method:'POST',
-        url:'http://192.168.0.7:5000/api/v1/location/create',
+        url:'http://192.168.1.67:5000/api/v1/location/create',
         headers:{
           Authorization:`Bearer ${jwt}`
         },

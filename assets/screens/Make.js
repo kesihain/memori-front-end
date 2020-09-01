@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,6 +11,10 @@ import {
 import { Button, List, Content, Left, Right, ListItem } from "native-base";
 import DropDownPicker from "react-native-dropdown-picker";
 import Icon from "react-native-vector-icons/Feather";
+import {locationContext} from '../../App';
+import Axios from "axios";
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 // const dataArray = [
 //   {
@@ -23,7 +27,42 @@ import Icon from "react-native-vector-icons/Feather";
 export default function Make({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalSeen, setModalSeen] = useState(false);
-
+  const {location,jwt,setJwt} = useContext(locationContext);
+  const [items,setItems] = useState([]);
+  const [locationId,setLocationId] = useState(0);
+  const [reminder,setReminder] = useState("");
+  useEffect(()=>{
+    let pickerItems = location.map((item,i)=>(
+    {
+      label: item.name,
+      value: item.id,
+      icon:()=>(
+        <Icon key={item.id} name='flag' size={18} color="rgb(155, 29, 32)" />
+      )
+    }
+  ))
+  setItems(pickerItems)
+  },[])
+  function makeReminder(){
+    AsyncStorage.getItem('@jwt').then(result=>{
+      setJwt(result);
+    })    
+    Axios({
+      method:'POST',
+      url:'http://192.168.1.67:5000/api/v1/reminder/create',
+      headers:{
+        Authorization:`Bearer ${jwt}`
+      },
+      data:{
+        location_id:locationId,item_name:reminder
+      }
+    }).then(result=>{
+      setLocationId(null)
+      setReminder("")
+    }).catch(error=>{
+      console.log(error)
+    })
+  }
   return (
     <View style={styles.container}>
       <Content
@@ -75,28 +114,12 @@ export default function Make({ navigation }) {
         <TextInput
           placeholder="new reminder"
           style={styles.input}
-          // onChangeText={goalInputHandler}
-          // value={enteredGoal}
+          onChangeText={text=>setReminder(text)}
+          value={reminder}
         />
 
         <DropDownPicker
-          items={[
-            {
-              label: "UK",
-              value: "uk",
-              icon: () => (
-                <Icon name="flag" size={18} color="rgb(155, 29, 32)" />
-              ),
-            },
-            {
-              label: "France",
-              value: "france",
-              icon: () => (
-                <Icon name="flag" size={18} color="rgb(155, 29, 32)" />
-              ),
-            },
-          ]}
-          defaultValue={"france"}
+          items={items}
           containerStyle={{ height: 70, width: 280 }}
           style={{ backgroundColor: "white" }}
           itemStyle={{
@@ -104,16 +127,13 @@ export default function Make({ navigation }) {
           }}
           dropDownStyle={{ backgroundColor: "rgb(114, 206, 224)" }}
           onChangeItem={(item) =>
-            this.setState({
-              country: item.value,
-            })
+           setLocationId(item.value)
           }
         />
 
-        <Button style={styles.button2}>
+        <Button style={styles.button2} onPress={makeReminder}>
           <Text style={styles.buttontext2}>ADD NEW REMINDER</Text>
         </Button>
-
         <Button style={styles.button3}>
           <Text style={styles.buttontext3}>SET NEW LOCATION</Text>
         </Button>
