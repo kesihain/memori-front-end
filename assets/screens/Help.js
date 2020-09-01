@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#ffe6dd',
     },
     card: {
-      margin: 15
+      margin: 10
     },   
   });
 
