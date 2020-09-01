@@ -21,7 +21,8 @@ import EditProfile from "./assets/screens/EditProfile";
 
 import RootStackScreen from "./assets/screens/RootStackScreen";
 import Make from "./assets/screens/Make";
-import Remember from "./assets/screens/Remember";
+import Remember from "./assets/screens/Remember"
+import { Button } from "react-native-paper";
 import Axios from "axios";
 import AsyncStorage from '@react-native-community/async-storage';
 import { set } from "react-native-reanimated";
@@ -63,7 +64,7 @@ export default function App() {
           <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen name="Home" component={HomeStackScreen} />
             <Drawer.Screen name="Help" component={HelpStackScreen} />
-            <Drawer.Screen name="Settings" component={SettingsScreen} />
+            <Drawer.Screen name="Settings" component={SettingsStackScreen} />
           </Drawer.Navigator>
         }
       </NavigationContainer>
@@ -73,9 +74,9 @@ export default function App() {
 
 const HomeStack = createStackNavigator();
 const HelpStack = createStackNavigator();
+const SettingsStack = createStackNavigator();
 const MakeStack = createStackNavigator();
 const LocationsStack = createStackNavigator();
-const EditProfileStack = createStackNavigator();
 const RememberStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 export const locationContext = React.createContext();
@@ -110,7 +111,7 @@ const HomeStackScreen = ({ navigation }) => {
           title: "MEMORI",
           headerRight: () => (
             <Icon.Button
-              name="user"
+              name="logout"
               size={25}
               backgroundColor="#33cccc"
               onPress={() => navigation.navigate(EditProfile)}
@@ -123,6 +124,15 @@ const HomeStackScreen = ({ navigation }) => {
         component={Make}
         options={{
           title: "CREATE REMINDERS",
+          headerRight: () => (
+            <Icon.Button name = "smile-circle"
+            size = {25} 
+            backgroundColor="#33cccc" >
+            </Icon.Button>),
+          headerTitleStyle:{
+            fontSize:20,
+            alignSelf: "center"
+          },
         }}
       />
       <LocationsStack.Screen
@@ -130,6 +140,15 @@ const HomeStackScreen = ({ navigation }) => {
         component={LocationsScreen}
         options={{
           title: "LOCATIONS",
+          headerRight: () => (
+            <Icon.Button name = "smile-circle"
+            size = {25} 
+            backgroundColor="#33cccc" >
+            </Icon.Button>),
+          headerTitleStyle:{
+            fontSize:20,
+            alignSelf: "center"
+          },
         }}
       />
       <RememberStack.Screen
@@ -137,13 +156,15 @@ const HomeStackScreen = ({ navigation }) => {
         component={Remember}
         options={{
           title: "REMEMBER",
-        }}
-      />
-      <EditProfileStack.Screen
-        name="EditProfile"
-        component={EditProfile}
-        options={{
-          title: "PROFILE",
+          headerRight: () => (
+            <Icon.Button name = "smile-circle"
+            size = {25} 
+            backgroundColor="#33cccc" >
+            </Icon.Button>),
+          headerTitleStyle:{
+            fontSize:20,
+            alignSelf: "center"
+          },
         }}
       />
     </HomeStack.Navigator>
@@ -154,7 +175,7 @@ const HelpStackScreen = ({ navigation }) => (
   <HelpStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: "#3399ff",
+        backgroundColor: "#33cccc",
       },
       headerTintColor: "#ffffff",
       headerTitleStyle: {
@@ -168,26 +189,64 @@ const HelpStackScreen = ({ navigation }) => (
       component={Help}
       options={{
         headerLeft: () => (
-          <Icon.Button
-            name="bars"
-            color="white"
-            size={25}
-            backgroundColor="#3399ff"
-            onPress={() => navigation.openDrawer()}
-          ></Icon.Button>
-        ),
-        title: "HELP",
-        headerRight: () => (
-          <Icon.Button
-            name="user"
-            size={25}
-            backgroundColor="#3399ff"
-            onPress={() => navigation.navigate(EditProfile)}
-          ></Icon.Button>
-        ),
+          <Icon.Button name = "bars"
+          color = 'white'
+          size = {25} 
+          backgroundColor="#33cccc" 
+          onPress ={()=> navigation.openDrawer()}>
+          </Icon.Button>),
+         title: "HELP", 
+         headerRight: () => (
+          <Icon.Button name = "smile-circle"
+          size = {25} 
+          backgroundColor="#33cccc" >
+          </Icon.Button>),
+        headerTitleStyle:{
+          fontSize:20,
+          alignSelf: "center"
+        },
       }}
     />
   </HelpStack.Navigator>
+);
+
+const SettingsStackScreen = ({ navigation }) => (
+  <SettingsStack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: "#33cccc",
+      },
+      headerTintColor: "#ffffff",
+      headerTitleStyle: {
+        fontSize: 35,
+        alignSelf: "center",
+      },
+    }}
+  >
+    <SettingsStack.Screen
+      name="Help"
+      component={SettingsScreen}
+      options={{
+        headerLeft: () => (
+          <Icon.Button name = "bars"
+          color = 'white'
+          size = {25} 
+          backgroundColor="#33cccc" 
+          onPress ={()=> navigation.openDrawer()}>
+          </Icon.Button>),
+         title: "HELP", 
+         headerRight: () => (
+          <Icon.Button name = "smile-circle"
+          size = {25} 
+          backgroundColor="#33cccc" >
+          </Icon.Button>),
+        headerTitleStyle:{
+          fontSize:20,
+          alignSelf: "center"
+        },
+      }}
+    />
+  </SettingsStack.Navigator>
 );
 
 const styles = StyleSheet.create({

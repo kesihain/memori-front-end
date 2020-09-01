@@ -12,7 +12,7 @@ const SignInScreen = ({navigation}) => {
     function handleSignIn(){
         axios({
             method: 'post',
-            url: 'http://192.168.0.7:5000/api/v1/login/',
+            url: 'http://192.168.1.67:5000/api/v1/login/',
             data: {
                 username:username,
                 password:password
@@ -52,9 +52,9 @@ const SignInScreen = ({navigation}) => {
                         style={styles.textIntput}
                         autoCapitalize="none" 
                         onChangeText={(password)=>setPassword(password)} />
-                </View>     
+                </View> 
+                <TouchableOpacity onPress={handleSignIn}>
                 <View style = {styles.button}>
-                    <TouchableOpacity onPress={handleSignIn}>
                         <LinearGradient
                         colors = {['#08d4c4', '#01ab9d']}
                         style = {styles.signIn}>
@@ -63,8 +63,10 @@ const SignInScreen = ({navigation}) => {
                                 color: "#fff"
                                 }]}>Sign In</Text>
                         </LinearGradient>
-                    </TouchableOpacity>
-
+                </View>
+                </TouchableOpacity>
+                
+                <View>
                     <TouchableOpacity
                     onPress={() => navigation.navigate('SignUpScreen')}
                     style = {[styles.signIn, {

@@ -13,7 +13,7 @@ const SignUpScreen = ({navigation}) => {
         if (password==confirmPassword){
             axios({
                 method: 'post',
-                url: 'http://192.168.1.67:5000/api/v1/users/signup/',
+                url: 'http://192.168.1.97:5000/api/v1/users/signup/',
                 data: {
                     username,
                     email,
@@ -77,22 +77,23 @@ const SignUpScreen = ({navigation}) => {
                         autoCapitalize="none" 
                         onChangeText={(text)=>setConfirmPassword(text)}
                     />
-                </View>       
-
+                </View>  
+                <TouchableOpacity onPress={handleSignUp}>
                 <View style = {styles.button}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')} >
                         <LinearGradient
                         colors = {['#08d4c4', '#01ab9d']}
                         style = {styles.signIn}>
 
                             <Text style ={[styles.textSign, {
                                 color: "#fff"
-                                }]}>Sign In</Text>
+                                }]}>Create Account</Text>
                         </LinearGradient>
-                    </TouchableOpacity>
+                </View>
+                </TouchableOpacity>
+                
+                <View>
                     <TouchableOpacity
-                    onPress={handleSignUp}
+                    onPress={() => navigation.navigate('SignInScreen')}
                     style = {[styles.signIn, {
                         borderColor: '#009387',
                         borderWidth: 1,
@@ -100,14 +101,13 @@ const SignUpScreen = ({navigation}) => {
                     }]}>
                         <Text style ={[styles.textSign, {
                             color: '#009387'
-                        }]}>Sign Up</Text>
+                        }]}>Sign in</Text>
                     </TouchableOpacity>
                 </View>       
             </View>
         </ScrollView>
     )
 }
-
 const styles = StyleSheet.create({
     container: {
       flex: 1, 
