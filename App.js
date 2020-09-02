@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,13 +16,10 @@ import Icon from "react-native-vector-icons/AntDesign";
 import HomeScreen from "./assets/screens/Home";
 import LocationsScreen from "./assets/screens/LocationsScreen";
 import Help from "./assets/screens/Help";
-import SettingsScreen from "./assets/screens/SettingsScreen";
-import EditProfile from "./assets/screens/EditProfile";
 
 import RootStackScreen from "./assets/screens/RootStackScreen";
 import Make from "./assets/screens/Make";
 import Remember from "./assets/screens/Remember"
-import { Button } from "react-native-paper";
 import Axios from "axios";
 import AsyncStorage from '@react-native-community/async-storage';
 import { set } from "react-native-reanimated";
@@ -43,7 +40,7 @@ export default function App() {
     AsyncStorage.getItem('@jwt').then(token=>{
       Axios({
         method:'GET',
-        url: 'http://192.168.1.67:5000/api/v1/location/show',
+        url: 'http://192.168.1.97:5000/api/v1/location/show',
         headers:{
           Authorization:`Bearer ${token}`
         }
@@ -64,7 +61,6 @@ export default function App() {
           <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen name="Home" component={HomeStackScreen} />
             <Drawer.Screen name="Help" component={HelpStackScreen} />
-            <Drawer.Screen name="Settings" component={SettingsStackScreen} />
           </Drawer.Navigator>
         }
       </NavigationContainer>
@@ -74,7 +70,6 @@ export default function App() {
 
 const HomeStack = createStackNavigator();
 const HelpStack = createStackNavigator();
-const SettingsStack = createStackNavigator();
 const MakeStack = createStackNavigator();
 const LocationsStack = createStackNavigator();
 const RememberStack = createStackNavigator();
@@ -82,6 +77,15 @@ const Drawer = createDrawerNavigator();
 export const locationContext = React.createContext();
 
 const HomeStackScreen = ({ navigation }) => {
+  const {setJwt} = useContext(locationContext)
+
+  function handleLogout({navigation}){
+    AsyncStorage.removeItem('@jwt')
+    .then( () => {
+      console.log(setJwt)
+      setJwt("")
+    })
+  };
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -114,7 +118,7 @@ const HomeStackScreen = ({ navigation }) => {
               name="logout"
               size={25}
               backgroundColor="#33cccc"
-              onPress={() => navigation.navigate(EditProfile)}
+              onPress={() => handleLogout({navigation})}
             ></Icon.Button>
           ),
         }}
@@ -208,45 +212,6 @@ const HelpStackScreen = ({ navigation }) => (
       }}
     />
   </HelpStack.Navigator>
-);
-
-const SettingsStackScreen = ({ navigation }) => (
-  <SettingsStack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: "#33cccc",
-      },
-      headerTintColor: "#ffffff",
-      headerTitleStyle: {
-        fontSize: 35,
-        alignSelf: "center",
-      },
-    }}
-  >
-    <SettingsStack.Screen
-      name="Help"
-      component={SettingsScreen}
-      options={{
-        headerLeft: () => (
-          <Icon.Button name = "bars"
-          color = 'white'
-          size = {25} 
-          backgroundColor="#33cccc" 
-          onPress ={()=> navigation.openDrawer()}>
-          </Icon.Button>),
-         title: "HELP", 
-         headerRight: () => (
-          <Icon.Button name = "smile-circle"
-          size = {25} 
-          backgroundColor="#33cccc" >
-          </Icon.Button>),
-        headerTitleStyle:{
-          fontSize:20,
-          alignSelf: "center"
-        },
-      }}
-    />
-  </SettingsStack.Navigator>
 );
 
 const styles = StyleSheet.create({

@@ -12,13 +12,12 @@ const SignInScreen = ({navigation}) => {
     function handleSignIn(){
         axios({
             method: 'post',
-            url: 'http://192.168.1.67:5000/api/v1/login/',
+            url: 'http://192.168.1.97:5000/api/v1/login/',
             data: {
                 username:username,
                 password:password
             }
         }).then(result=>{
-            setAuthenticated(true)
             // console.log(result.data.auth_token)
             AsyncStorage.setItem('@jwt',result.data.auth_token)
             setJwt(result.data.auth_token)

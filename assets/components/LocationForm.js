@@ -26,7 +26,7 @@ export default function LocationForm({ location, setLocation }) {
     let coordinate = await Location.getCurrentPositionAsync({});
     setLatitude(coordinate.coords.latitude);
     setLongitude(coordinate.coords.longitude);
-    let geoAddress = await Location.reverseGeocodeAsync({latitude:parseInt(coordinate.coords.latitude),longitude:parseInt(coordinate.coords.longitude)})
+    let geoAddress = await Location.reverseGeocodeAsync({latitude:parseFloat(coordinate.coords.latitude),longitude:parseFloat(coordinate.coords.longitude)})
     console.log(geoAddress);
     let geoCode = geoAddress[0];
     let geoString = `${geoCode.name} ${geoCode.street} ${geoCode.postalCode} ${geoCode.region} ${geoCode.city} ${geoCode.country}`
@@ -40,7 +40,7 @@ export default function LocationForm({ location, setLocation }) {
     if (address.length>0 && name.length>0){
       Axios({
         method:'POST',
-        url:'http://192.168.1.67:5000/api/v1/location/create',
+        url:'http://192.168.1.97:5000/api/v1/location/create',
         headers:{
           Authorization:`Bearer ${jwt}`
         },
@@ -99,7 +99,7 @@ export default function LocationForm({ location, setLocation }) {
         bordered
         success
       >
-        <Text style={styles.buttontext}>Use current Location</Text>
+        <Text style={styles.buttontext}>Use Current Location</Text>
       </Button>
       <Button
         style={styles.button}

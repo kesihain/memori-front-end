@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {StyleSheet, Text, TextInput, View, Image, SafeAreaView,Button,TouchableOpacity, Dimensions, Alert, StatusBar} from "react-native";
+import {StyleSheet, Text, TextInput, View, Image, SafeAreaView,Button,TouchableOpacity, Dimensions, Alert, StatusBar, ScrollView} from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
