@@ -6,7 +6,7 @@
 3. Ensure you are in the directory.
 4. Run `npm start` or `expo start`
 
-# User stories
+## User stories
 1. User can sign up/ sign in
 2. User can save current location with custom name, address and coordinates by accessing device location.(Geolocation tech)
 3. User can save custom location with custom name, address and coordinates by typing address.(Geocoding tech)
